@@ -1,0 +1,98 @@
+{
+  "app": {
+    "name": "זה-כאן"
+  },
+  "tabs": {
+    "feed": "עדכון",
+    "search": "חיפוש",
+    "map": "מפה",
+    "settings": "הגדרות"
+  },
+  "feed": {
+    "title": "חדשות אחרונות",
+    "localTitle": "חדשות קרוב אליך",
+    "allCategories": "הכל",
+    "empty": "לא נמצאו כתבות.",
+    "loadError": "לא ניתן לטעון כתבות. משוך לרענון.",
+    "updatedAgo": "לפני {{time}}",
+    "credibility": "אמינות",
+    "sources": "מקורות",
+    "readMore": "קרא עוד"
+  },
+  "search": {
+    "placeholder": "חפש חדשות...",
+    "empty": "אין תוצאות עבור \"{{query}}\"",
+    "hint": "חפש כתבות לפי מילת מפתח"
+  },
+  "article": {
+    "keyFacts": "עובדות מרכזיות",
+    "sources": "מקורות",
+    "credibility": "ציון אמינות",
+    "region": "אזור",
+    "publishedAt": "פורסם",
+    "updatedAt": "עודכן"
+  },
+  "map": {
+    "title": "חקור לפי מיקום",
+    "tapHint": "לחץ על אזור לצפייה בחדשות",
+    "noArticles": "אין כתבות לאזור זה",
+    "selectLocation": "בחר מיקום",
+    "addLocation": "הוסף מיקום",
+    "addLocationHint": "הכנס עיר, אזור או מדינה",
+    "adding": "מוסיף...",
+    "nearMe": "קרוב אליי",
+    "browse": "עיון",
+    "locating": "מאתר את מיקומך...",
+    "noNearby": "לא נמצאו חדשות קרוב אליך.",
+    "locationDenied": "הגישה למיקום נדחתה",
+    "locationDeniedMsg": "אפשר הרשאות מיקום בהגדרות כדי להשתמש בתכונה זו.",
+    "nearbyError": "לא ניתן לטעון חדשות קרובות.",
+    "levelCity": "עיר",
+    "levelRegion": "אזור",
+    "levelCountry": "מדינה",
+    "level1": "עיר",
+    "level2": "אזור",
+    "level3": "מדינה"
+  },
+  "settings": {
+    "title": "הגדרות",
+    "language": "שפה",
+    "languageAuto": "אוטומטי (לפי שפת המכשיר)",
+    "english": "English",
+    "hebrew": "עברית",
+    "mapFeature": "חקירת מפה",
+    "mapFeatureDesc": "הצג לשונית מפה לעיון בחדשות לפי מיקום",
+    "locationAccess": "גישה למיקום",
+    "locationAccessDesc": "משמש לזיהוי האזור שלך ולהצגת חדשות מקומיות",
+    "features": "פיצרים",
+    "about": "אודות",
+    "version": "גרסה",
+    "currentLanguage": "שפה",
+    "contribute": "תרומה",
+    "contributeMessage": "לתרומה לזה-כאן חדשות אנא צרו קשר עם שירות הלקוחות שלנו",
+    "contributeEmail": "zekan.news@gmail.com"
+  },
+  "common": {
+    "loading": "טוען...",
+    "retry": "נסה שוב",
+    "cancel": "ביטול",
+    "save": "שמור",
+    "close": "סגור",
+    "noData": "אין נתונים זמינים"
+  },
+  "categories": {
+    "Politics": "פוליטיקה",
+    "Economy": "כלכלה",
+    "Health": "בריאות",
+    "Technology": "טכנולוגיה",
+    "Environment": "סביבה",
+    "Defence and Security": "ביטחון",
+    "Sports": "ספורט"
+  },
+  "time": {
+    "justNow": "עכשיו",
+    "minutesAgo": "לפני {{n}} דק׳",
+    "hoursAgo": "לפני {{n}} ש׳",
+    "daysAgo": "לפני {{n}} ימים"
+  }
+}

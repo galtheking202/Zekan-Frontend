@@ -1,0 +1,98 @@
+{
+  "app": {
+    "name": "Zekan"
+  },
+  "tabs": {
+    "feed": "Feed",
+    "search": "Search",
+    "map": "Map",
+    "settings": "Settings"
+  },
+  "feed": {
+    "title": "Latest News",
+    "localTitle": "News near you",
+    "allCategories": "All",
+    "empty": "No articles found.",
+    "loadError": "Could not load articles. Pull to refresh.",
+    "updatedAgo": "{{time}} ago",
+    "credibility": "Credibility",
+    "sources": "Sources",
+    "readMore": "Read more"
+  },
+  "search": {
+    "placeholder": "Search news...",
+    "empty": "No results for \"{{query}}\"",
+    "hint": "Search articles by keyword"
+  },
+  "article": {
+    "keyFacts": "Key facts",
+    "sources": "Sources",
+    "credibility": "Credibility score",
+    "region": "Region",
+    "publishedAt": "Published",
+    "updatedAt": "Updated"
+  },
+  "map": {
+    "title": "Explore by location",
+    "tapHint": "Tap a region to browse news",
+    "noArticles": "No articles for this area",
+    "selectLocation": "Select a location",
+    "addLocation": "Add location",
+    "addLocationHint": "Enter a city, region, or country",
+    "adding": "Adding...",
+    "nearMe": "Near Me",
+    "browse": "Browse",
+    "locating": "Finding your location...",
+    "noNearby": "No news found near your location.",
+    "locationDenied": "Location access denied",
+    "locationDeniedMsg": "Enable location permissions in Settings to use this feature.",
+    "nearbyError": "Could not fetch nearby news.",
+    "levelCity": "City",
+    "levelRegion": "Region",
+    "levelCountry": "Country",
+    "level1": "City",
+    "level2": "Region",
+    "level3": "Country"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "languageAuto": "Auto (by device language)",
+    "english": "English",
+    "hebrew": "עברית",
+    "mapFeature": "Map exploration",
+    "mapFeatureDesc": "Show the Map tab to browse news by location",
+    "locationAccess": "Location access",
+    "locationAccessDesc": "Used to detect your region and show local news",
+    "features": "Features",
+    "about": "About",
+    "version": "Version",
+    "currentLanguage": "Language",
+    "contribute": "Contribute",
+    "contributeMessage": "For contribution to Zekan News please contact our customer support",
+    "contributeEmail": "zekan.news@gmail.com"
+  },
+  "common": {
+    "loading": "Loading...",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "save": "Save",
+    "close": "Close",
+    "noData": "No data available"
+  },
+  "categories": {
+    "Politics": "Politics",
+    "Economy": "Economy",
+    "Health": "Health",
+    "Technology": "Technology",
+    "Environment": "Environment",
+    "Defence and Security": "Defence & Security",
+    "Sports": "Sports"
+  },
+  "time": {
+    "justNow": "just now",
+    "minutesAgo": "{{n}}m",
+    "hoursAgo": "{{n}}h",
+    "daysAgo": "{{n}}d"
+  }
+}
