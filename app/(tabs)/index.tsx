@@ -33,7 +33,7 @@ export default function FeedScreen() {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status === 'granted') {
         const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
-        const data = await api.nearbyArticles(pos.coords.latitude, pos.coords.longitude, 1);
+        const data = await api.nearbyArticles(pos.coords.latitude, pos.coords.longitude, 3);
         setArticles(data.groups.flatMap((g) => g.articles));
       } else {
         const data = await api.articles();
