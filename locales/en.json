@@ -6,6 +6,7 @@
     "feed": "Feed",
     "search": "Search",
     "map": "Map",
+    "debug": "Debug",
     "settings": "Settings"
   },
   "feed": {
@@ -68,6 +69,9 @@
     "about": "About",
     "version": "Version",
     "currentLanguage": "Language",
+    "developer": "Developer",
+    "debugMode": "Debug map",
+    "debugModeDesc": "Show a map of all locations in the DB with their articles",
     "contribute": "Contribute",
     "contributeMessage": "For contribution to Zekan News please contact our customer support",
     "contributeEmail": "zekan.news@gmail.com"

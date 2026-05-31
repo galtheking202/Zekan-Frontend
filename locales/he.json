@@ -6,6 +6,7 @@
     "feed": "עדכון",
     "search": "חיפוש",
     "map": "מפה",
+    "debug": "דיבאג",
     "settings": "הגדרות"
   },
   "feed": {
@@ -68,6 +69,9 @@
     "about": "אודות",
     "version": "גרסה",
     "currentLanguage": "שפה",
+    "developer": "מפתח",
+    "debugMode": "מפת דיבאג",
+    "debugModeDesc": "הצג מפה של כל המיקומים בבסיס הנתונים עם הכתבות שלהם",
     "contribute": "תרומה",
     "contributeMessage": "לתרומה לזה-כאן חדשות אנא צרו קשר עם שירות הלקוחות שלנו",
     "contributeEmail": "zekan.news@gmail.com"

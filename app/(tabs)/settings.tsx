@@ -21,15 +21,25 @@ import { SupportedLanguage, LANGUAGE_NAMES } from '../../lib/i18n';
 import { Colors } from '../../constants/colors';
 
 
+const DEBUG_MODE_KEY = '@zekan/debug_mode';
+
 export default function SettingsScreen() {
   const { t, i18n } = useTranslation();
   const rtl = i18n.language === 'he';
   const [langPref, setLangPref] = useState<SupportedLanguage | null>(null);
   const [contributeOpen, setContributeOpen] = useState(false);
+  const [debugMode, setDebugMode] = useState(false);
 
   useEffect(() => {
     getUserLanguagePref().then(setLangPref);
+    AsyncStorage.getItem(DEBUG_MODE_KEY).then((v) => setDebugMode(v === 'true'));
   }, []);
+
+  const toggleDebugMode = async () => {
+    const next = !debugMode;
+    setDebugMode(next);
+    await AsyncStorage.setItem(DEBUG_MODE_KEY, String(next));
+  };
 
   const selectLanguage = async (lang: SupportedLanguage | null) => {
     if (lang === null) {
@@ -89,6 +99,19 @@ export default function SettingsScreen() {
               </Pressable>
             </View>
           )}
+        </View>
+
+        <SectionHeader label={t('settings.developer')} rtl={rtl} />
+        <View style={styles.card}>
+          <Pressable style={[styles.row, { flexDirection: rowDir }]} onPress={toggleDebugMode}>
+            <View style={[styles.rowText, { alignItems: rtl ? 'flex-end' : 'flex-start' }]}>
+              <Text style={[styles.rowLabel, { textAlign }]}>{t('settings.debugMode')}</Text>
+              <Text style={[styles.rowDesc, { textAlign }]}>{t('settings.debugModeDesc')}</Text>
+            </View>
+            <Text style={[styles.rowValue, debugMode && { color: Colors.primary, fontWeight: '700' }]}>
+              {debugMode ? '●' : '○'}
+            </Text>
+          </Pressable>
         </View>
 
         <SectionHeader label={t('settings.about')} rtl={rtl} />
