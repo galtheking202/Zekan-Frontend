@@ -11,12 +11,15 @@ import {
   Image,
 } from 'react-native';
 import * as Location from 'expo-location';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { api } from '../../services/api';
 import { Article } from '../../types';
 import { Colors } from '../../constants/colors';
 import ArticleCard from '../../components/ArticleCard';
+
+const DEBUG_MODE_KEY = '@zekan/debug_mode';
 
 export default function FeedScreen() {
   const { t, i18n } = useTranslation();
@@ -26,10 +29,23 @@ export default function FeedScreen() {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState(false);
+  const sortLatestFirst = (list: Article[]) =>
+    [...list].sort((a, b) => {
+      const ta = new Date(a.created_at ?? a.date).getTime();
+      const tb = new Date(b.created_at ?? b.date).getTime();
+      return tb - ta;
+    });
+
   const load = useCallback(async (isRefresh = false) => {
     try {
       if (!isRefresh) setLoading(true);
       setError(false);
+      const debugMode = (await AsyncStorage.getItem(DEBUG_MODE_KEY)) === 'true';
+      if (debugMode) {
+        const data = await api.articles();
+        setArticles(sortLatestFirst(data));
+        return;
+      }
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status === 'granted') {
         const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
