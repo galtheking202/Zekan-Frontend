@@ -11,6 +11,7 @@ const CATEGORIES = [
   'Environment',
   'Defence and Security',
   'Sports',
+  'Roads',
 ];
 
 interface Props {

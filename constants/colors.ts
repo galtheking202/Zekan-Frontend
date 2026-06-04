@@ -22,5 +22,6 @@ export const Colors = {
     Environment: '#2E7D32',
     'Defence and Security': '#37474F',
     Sports: '#E65100',
+    Roads: '#B45309',
   } as Record<string, string>,
 } as const;

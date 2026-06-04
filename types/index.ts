@@ -13,7 +13,7 @@ export interface Article {
   external_sources: string[] | null;
   area_exterior: GeoJSONGeometry | null;
   region: string | null;
-  location_id?: string | null;
+  location_ids?: string[] | null;
   is_urgent?: boolean | null;
   languages?: {
     en?: LanguageContent;
@@ -62,4 +62,5 @@ export type Category =
   | 'Technology'
   | 'Environment'
   | 'Defence and Security'
-  | 'Sports';
+  | 'Sports'
+  | 'Roads';
