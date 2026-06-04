@@ -20,6 +20,11 @@ import { Article } from '../../types';
 import { Colors } from '../../constants/colors';
 import ArticleCard from '../../components/ArticleCard';
 
+function dedupeById(articles: Article[]): Article[] {
+  const seen = new Set<string>();
+  return articles.filter((a) => !seen.has(a.id) && !!seen.add(a.id));
+}
+
 const DEBUG_MODE_KEY = '@zekan/debug_mode';
 const MANUAL_LOCATION_ID_KEY = '@zekan/manual_location_id';
 const MANUAL_LOCATION_NAME_KEY = '@zekan/manual_location_name';
@@ -77,7 +82,7 @@ export default function FeedScreen() {
       ]);
       if (manualLocationId && manualLocationName) {
         const data = await api.nearbyArticlesByName(manualLocationName, 3);
-        const flat = data.groups.flatMap((g) => g.articles);
+        const flat = dedupeById(data.groups.flatMap((g) => g.articles));
         setArticles(flat);
         await notifyUrgent(flat);
         return;
@@ -86,7 +91,7 @@ export default function FeedScreen() {
       if (status === 'granted') {
         const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
         const data = await api.nearbyArticles(pos.coords.latitude, pos.coords.longitude, 3);
-        const flat = data.groups.flatMap((g) => g.articles);
+        const flat = dedupeById(data.groups.flatMap((g) => g.articles));
         setArticles(flat);
         await notifyUrgent(flat);
       } else {

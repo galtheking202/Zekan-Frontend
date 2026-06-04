@@ -140,7 +140,7 @@ export default function MapScreen() {
         <Text style={styles.groupName}>{item.location_name}</Text>
       </View>
       {item.articles.map((article) => (
-        <ArticleCard key={article.id} article={article} />
+        <ArticleCard key={`${item.location_id}-${article.id}`} article={article} />
       ))}
     </View>
   );
