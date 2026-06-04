@@ -14,6 +14,7 @@ export interface Article {
   area_exterior: GeoJSONGeometry | null;
   region: string | null;
   location_id?: string | null;
+  is_urgent?: boolean | null;
   languages?: {
     en?: LanguageContent;
     he?: LanguageContent;

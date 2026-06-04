@@ -72,9 +72,16 @@
     "developer": "Developer",
     "debugMode": "Debug map",
     "debugModeDesc": "Show a map of all locations in the DB with their articles",
-    "contribute": "Contribute",
-    "contributeMessage": "For contribution to Zekan News please contact our customer support",
-    "contributeEmail": "zekan.news@gmail.com"
+    "contribute": "Report",
+    "contributeMessage": "to report to Zekan News please contact our customer support",
+    "contributeEmail": "zekan.news@gmail.com",
+    "location": "Location",
+    "locationFeed": "Feed location",
+    "locationNone": "Auto (GPS)",
+    "locationSearch": "Search locations...",
+    "notifications": "Notifications",
+    "urgentNotifications": "Urgent alerts",
+    "urgentNotificationsDesc": "Get notified when breaking news arrives"
   },
   "common": {
     "loading": "Loading...",

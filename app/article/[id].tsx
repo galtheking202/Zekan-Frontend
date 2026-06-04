@@ -17,9 +17,13 @@ import { Article } from '../../types';
 import { Colors } from '../../constants/colors';
 import CategoryBadge from '../../components/CategoryBadge';
 
+function parseUtc(dateStr: string): Date {
+  return new Date(/Z$|[+-]\d{2}:\d{2}$/.test(dateStr) ? dateStr : dateStr + 'Z');
+}
+
 function formatDate(dateStr: string | null, locale: string): string {
   if (!dateStr) return '';
-  return new Date(dateStr).toLocaleString(locale === 'he' ? 'he-IL' : 'en-US', {
+  return parseUtc(dateStr).toLocaleString(locale === 'he' ? 'he-IL' : 'en-US', {
     dateStyle: 'medium',
     timeStyle: 'short',
   });

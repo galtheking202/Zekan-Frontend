@@ -11,8 +11,12 @@ interface Props {
   article: Article;
 }
 
+function parseUtc(dateStr: string): Date {
+  return new Date(/Z$|[+-]\d{2}:\d{2}$/.test(dateStr) ? dateStr : dateStr + 'Z');
+}
+
 function timeAgo(t: ReturnType<typeof useTranslation>['t'], dateStr: string): string {
-  const diff = Date.now() - new Date(dateStr).getTime();
+  const diff = Date.now() - parseUtc(dateStr).getTime();
   const mins = Math.floor(diff / 60000);
   if (mins < 1) return t('time.justNow');
   if (mins < 60) return t('time.minutesAgo', { n: mins });

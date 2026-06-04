@@ -8,6 +8,8 @@ import {
   ScrollView,
   Alert,
   Linking,
+  TextInput,
+  ActivityIndicator,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -19,9 +21,14 @@ import {
 } from '../../lib/languageDetector';
 import { SupportedLanguage, LANGUAGE_NAMES } from '../../lib/i18n';
 import { Colors } from '../../constants/colors';
+import { api } from '../../services/api';
+import { Location } from '../../types';
 
 
 const DEBUG_MODE_KEY = '@zekan/debug_mode';
+const MANUAL_LOCATION_ID_KEY = '@zekan/manual_location_id';
+const MANUAL_LOCATION_NAME_KEY = '@zekan/manual_location_name';
+const URGENT_NOTIFICATIONS_KEY = '@zekan/urgent_notifications';
 
 export default function SettingsScreen() {
   const { t, i18n } = useTranslation();
@@ -29,16 +36,67 @@ export default function SettingsScreen() {
   const [langPref, setLangPref] = useState<SupportedLanguage | null>(null);
   const [contributeOpen, setContributeOpen] = useState(false);
   const [debugMode, setDebugMode] = useState(false);
+  const [urgentNotifications, setUrgentNotifications] = useState(true);
+  const [manualLocationId, setManualLocationId] = useState<string | null>(null);
+  const [manualLocationName, setManualLocationName] = useState<string | null>(null);
+  const [locationPickerOpen, setLocationPickerOpen] = useState(false);
+  const [locationQuery, setLocationQuery] = useState('');
+  const [allLocations, setAllLocations] = useState<Location[]>([]);
+  const [loadingLocations, setLoadingLocations] = useState(false);
 
   useEffect(() => {
     getUserLanguagePref().then(setLangPref);
     AsyncStorage.getItem(DEBUG_MODE_KEY).then((v) => setDebugMode(v === 'true'));
+    AsyncStorage.getItem(URGENT_NOTIFICATIONS_KEY).then((v) => setUrgentNotifications(v !== 'false'));
+    AsyncStorage.getItem(MANUAL_LOCATION_ID_KEY).then(setManualLocationId);
+    AsyncStorage.getItem(MANUAL_LOCATION_NAME_KEY).then(setManualLocationName);
   }, []);
 
   const toggleDebugMode = async () => {
     const next = !debugMode;
     setDebugMode(next);
     await AsyncStorage.setItem(DEBUG_MODE_KEY, String(next));
+  };
+
+  const toggleUrgentNotifications = async () => {
+    const next = !urgentNotifications;
+    setUrgentNotifications(next);
+    await AsyncStorage.setItem(URGENT_NOTIFICATIONS_KEY, String(next));
+  };
+
+  const handleLocationPickerToggle = async () => {
+    if (!locationPickerOpen) {
+      setLocationPickerOpen(true);
+      if (allLocations.length === 0) {
+        setLoadingLocations(true);
+        try {
+          const locs = await api.locations();
+          setAllLocations(locs);
+        } finally {
+          setLoadingLocations(false);
+        }
+      }
+    } else {
+      setLocationPickerOpen(false);
+      setLocationQuery('');
+    }
+  };
+
+  const selectLocation = async (loc: Location | null) => {
+    if (loc === null) {
+      await AsyncStorage.multiRemove([MANUAL_LOCATION_ID_KEY, MANUAL_LOCATION_NAME_KEY]);
+      setManualLocationId(null);
+      setManualLocationName(null);
+    } else {
+      await AsyncStorage.multiSet([
+        [MANUAL_LOCATION_ID_KEY, loc.id],
+        [MANUAL_LOCATION_NAME_KEY, loc.name],
+      ]);
+      setManualLocationId(loc.id);
+      setManualLocationName(loc.name);
+    }
+    setLocationPickerOpen(false);
+    setLocationQuery('');
   };
 
   const selectLanguage = async (lang: SupportedLanguage | null) => {
@@ -60,6 +118,60 @@ export default function SettingsScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
         <Text style={[styles.pageTitle, { textAlign }]}>{t('settings.title')}</Text>
+
+        <SectionHeader label={t('settings.location')} rtl={rtl} />
+        <View style={styles.card}>
+          <Pressable style={[styles.row, { flexDirection: rowDir }]} onPress={handleLocationPickerToggle}>
+            <View style={[styles.rowText, { alignItems: rtl ? 'flex-end' : 'flex-start' }]}>
+              <Text style={[styles.rowLabel, { textAlign }]}>{t('settings.locationFeed')}</Text>
+              <Text style={[styles.rowDesc, { textAlign }]}>
+                {manualLocationName ?? t('settings.locationNone')}
+              </Text>
+            </View>
+            <Text style={styles.rowValue}>{locationPickerOpen ? '▲' : '▼'}</Text>
+          </Pressable>
+
+          {locationPickerOpen && (
+            <View>
+              <TextInput
+                style={[styles.locationSearch, { textAlign }]}
+                placeholder={t('settings.locationSearch')}
+                placeholderTextColor={Colors.textMuted}
+                value={locationQuery}
+                onChangeText={setLocationQuery}
+                autoFocus
+              />
+              {loadingLocations ? (
+                <ActivityIndicator color={Colors.primary} style={{ padding: 14 }} />
+              ) : (
+                <>
+                  <LocationOption
+                    label={t('settings.locationNone')}
+                    selected={manualLocationId === null}
+                    onPress={() => selectLocation(null)}
+                    rtl={rtl}
+                  />
+                  {allLocations
+                    .filter((loc) =>
+                      loc.name.toLowerCase().includes(locationQuery.toLowerCase())
+                    )
+                    .slice(0, 8)
+                    .map((loc) => (
+                      <React.Fragment key={loc.id}>
+                        <Separator rtl={rtl} />
+                        <LocationOption
+                          label={loc.name}
+                          selected={manualLocationId === loc.id}
+                          onPress={() => selectLocation(loc)}
+                          rtl={rtl}
+                        />
+                      </React.Fragment>
+                    ))}
+                </>
+              )}
+            </View>
+          )}
+        </View>
 
         <SectionHeader label={t('settings.language')} rtl={rtl} />
         <View style={styles.card}>
@@ -99,6 +211,19 @@ export default function SettingsScreen() {
               </Pressable>
             </View>
           )}
+        </View>
+
+        <SectionHeader label={t('settings.notifications')} rtl={rtl} />
+        <View style={styles.card}>
+          <Pressable style={[styles.row, { flexDirection: rowDir }]} onPress={toggleUrgentNotifications}>
+            <View style={[styles.rowText, { alignItems: rtl ? 'flex-end' : 'flex-start' }]}>
+              <Text style={[styles.rowLabel, { textAlign }]}>{t('settings.urgentNotifications')}</Text>
+              <Text style={[styles.rowDesc, { textAlign }]}>{t('settings.urgentNotificationsDesc')}</Text>
+            </View>
+            <Text style={[styles.rowValue, urgentNotifications && { color: Colors.primary, fontWeight: '700' }]}>
+              {urgentNotifications ? '●' : '○'}
+            </Text>
+          </Pressable>
         </View>
 
         <SectionHeader label={t('settings.developer')} rtl={rtl} />
@@ -164,6 +289,25 @@ function LangOption({
   );
 }
 
+function LocationOption({
+  label,
+  selected,
+  onPress,
+  rtl,
+}: {
+  label: string;
+  selected: boolean;
+  onPress: () => void;
+  rtl: boolean;
+}) {
+  return (
+    <Pressable style={[styles.row, { flexDirection: rtl ? 'row-reverse' : 'row' }]} onPress={onPress}>
+      <Text style={[styles.rowLabel, { textAlign: rtl ? 'right' : 'left', flex: 1 }]}>{label}</Text>
+      {selected && <Text style={styles.checkmark}>✓</Text>}
+    </Pressable>
+  );
+}
+
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.surface },
   scroll: { paddingBottom: 40 },
@@ -223,5 +367,16 @@ const styles = StyleSheet.create({
     color: Colors.primary,
     fontWeight: '600',
     textDecorationLine: 'underline',
+  },
+  locationSearch: {
+    borderTopWidth: 1,
+    borderTopColor: Colors.border,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.border,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    fontSize: 14,
+    color: Colors.text,
+    backgroundColor: Colors.surface,
   },
 });

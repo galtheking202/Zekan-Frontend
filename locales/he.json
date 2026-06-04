@@ -72,9 +72,16 @@
     "developer": "מפתח",
     "debugMode": "מפת דיבאג",
     "debugModeDesc": "הצג מפה של כל המיקומים בבסיס הנתונים עם הכתבות שלהם",
-    "contribute": "תרומה",
-    "contributeMessage": "לתרומה לזה-כאן חדשות אנא צרו קשר עם שירות הלקוחות שלנו",
-    "contributeEmail": "zekan.news@gmail.com"
+    "contribute": "דיווחים",
+    "contributeMessage": "לדיווחים לזה-כאן חדשות, אנא צרו קשר במייל",
+    "contributeEmail": "zekan.news@gmail.com",
+    "location": "מיקום",
+    "locationFeed": "מיקום העדכון",
+    "locationNone": "אוטומטי (GPS)",
+    "locationSearch": "חפש מיקומים...",
+    "notifications": "התראות",
+    "urgentNotifications": "התראות חדשות דחופות",
+    "urgentNotificationsDesc": "קבל התראה כאשר מגיעות חדשות דחופות"
   },
   "common": {
     "loading": "טוען...",

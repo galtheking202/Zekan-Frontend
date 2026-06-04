@@ -85,6 +85,25 @@ export const api = {
     return get(`/articles/near?lat=${lat}&lon=${lon}&precision_level=${precisionLevel}`);
   },
 
+  nearbyArticlesByName: async (locationName: string, precisionLevel = 1): Promise<NearbyArticlesResponse> => {
+    if (USE_MOCK) {
+      await sleep(700);
+      const loc = MOCK_LOCATIONS.find((l) => l.name.toLowerCase() === locationName.toLowerCase());
+      const groups: LocationGroup[] = loc
+        ? [{
+            location_id: loc.id,
+            location_name: loc.name,
+            level: loc.level,
+            articles: MOCK_ARTICLES.filter((a) =>
+              (a.region ?? '').toLowerCase().includes(loc.name.toLowerCase())
+            ).slice(0, 5),
+          }].filter((g) => g.articles.length > 0)
+        : [];
+      return { groups, total: groups.reduce((n, g) => n + g.articles.length, 0) };
+    }
+    return get(`/articles/near?location_name=${encodeURIComponent(locationName)}&precision_level=${precisionLevel}`);
+  },
+
   addLocation: async (name: string, level: string, parent?: string): Promise<Location> => {
     if (USE_MOCK) {
       await sleep(800);
