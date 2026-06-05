@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -12,10 +12,21 @@ import {
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
+import MapView, { Polygon } from 'react-native-maps';
 import { api } from '../../services/api';
-import { Article } from '../../types';
+import { Article, GeoJSONGeometry, Location } from '../../types';
 import { Colors } from '../../constants/colors';
 import CategoryBadge from '../../components/CategoryBadge';
+
+function geoJsonRings(geom: GeoJSONGeometry): number[][][] {
+  if (geom.type === 'Polygon') return geom.coordinates as number[][][];
+  if (geom.type === 'MultiPolygon') return (geom.coordinates as number[][][][]).flatMap((p) => p);
+  return [];
+}
+
+function toLatLng(ring: number[][]): { latitude: number; longitude: number }[] {
+  return ring.map(([lon, lat]) => ({ latitude: lat, longitude: lon }));
+}
 
 function parseUtc(dateStr: string): Date {
   return new Date(/Z$|[+-]\d{2}:\d{2}$/.test(dateStr) ? dateStr : dateStr + 'Z');
@@ -35,16 +46,25 @@ export default function ArticleDetailScreen() {
   const router = useRouter();
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
+  const [locationPolygons, setLocationPolygons] = useState<Location[]>([]);
+  const mapRef = useRef<MapView>(null);
 
   const rtl = i18n.language === 'he';
   const textAlign = rtl ? 'right' : 'left';
 
   useEffect(() => {
-    api.articleById(id).then((article) => {
-      setArticle(article);
+    api.articleById(id).then((a) => {
+      setArticle(a);
       setLoading(false);
     }).catch(() => setLoading(false));
   }, [id]);
+
+  useEffect(() => {
+    if (!article?.location_ids?.length) return;
+    api.locations().then((locs) => {
+      setLocationPolygons(locs.filter((l) => article.location_ids!.includes(l.id) && l.polygon));
+    });
+  }, [article]);
 
   if (loading) {
     return (
@@ -171,6 +191,68 @@ export default function ArticleDetailScreen() {
               ))}
             </>
           )}
+
+          {/* Polygon coverage map */}
+          {(article.area_exterior || locationPolygons.length > 0) && (
+            <>
+              <View style={styles.divider} />
+              <Text style={styles.sectionLabel}>Coverage area</Text>
+              <View style={styles.debugMapWrap}>
+                <MapView
+                  ref={mapRef}
+                  style={styles.debugMap}
+                  onLayout={() => {
+                    const allCoords: { latitude: number; longitude: number }[] = [];
+                    if (article.area_exterior) {
+                      geoJsonRings(article.area_exterior).forEach((ring) =>
+                        allCoords.push(...toLatLng(ring))
+                      );
+                    }
+                    locationPolygons.forEach((loc) => {
+                      geoJsonRings(loc.polygon!).forEach((ring) =>
+                        allCoords.push(...toLatLng(ring))
+                      );
+                    });
+                    if (allCoords.length) {
+                      mapRef.current?.fitToCoordinates(allCoords, {
+                        edgePadding: { top: 20, right: 20, bottom: 20, left: 20 },
+                        animated: false,
+                      });
+                    }
+                  }}
+                >
+                  {article.area_exterior &&
+                    geoJsonRings(article.area_exterior).map((ring, i) => (
+                      <Polygon
+                        key={`area-${i}`}
+                        coordinates={toLatLng(ring)}
+                        fillColor="rgba(255,100,0,0.18)"
+                        strokeColor="rgba(255,100,0,0.85)"
+                        strokeWidth={2}
+                      />
+                    ))}
+                  {locationPolygons.map((loc) =>
+                    geoJsonRings(loc.polygon!).map((ring, i) => (
+                      <Polygon
+                        key={`loc-${loc.id}-${i}`}
+                        coordinates={toLatLng(ring)}
+                        fillColor="rgba(0,120,255,0.13)"
+                        strokeColor="rgba(0,120,255,0.75)"
+                        strokeWidth={2}
+                      />
+                    ))
+                  )}
+                </MapView>
+                {locationPolygons.length > 0 && (
+                  <View style={styles.debugMapBadge}>
+                    <Text style={styles.debugMapBadgeText}>
+                      {locationPolygons.map((l) => l.name).join(', ')}
+                    </Text>
+                  </View>
+                )}
+              </View>
+            </>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -216,4 +298,16 @@ const styles = StyleSheet.create({
   bullet: { color: Colors.primary, fontSize: 10, marginTop: 4 },
   bulletText: { flex: 1, fontSize: 14, color: Colors.text, lineHeight: 20 },
   sourceLink: { fontSize: 13, color: Colors.primary, textDecorationLine: 'underline', marginBottom: 4 },
+  debugMapWrap: { borderRadius: 10, overflow: 'hidden', height: 240 },
+  debugMap: { flex: 1 },
+  debugMapBadge: {
+    position: 'absolute',
+    bottom: 8,
+    alignSelf: 'center',
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 10,
+  },
+  debugMapBadgeText: { color: '#fff', fontSize: 11, fontWeight: '700', letterSpacing: 0.4 },
 });

@@ -42,8 +42,8 @@ export default function FeedScreen() {
 
   const sortLatestFirst = (list: Article[]) =>
     [...list].sort((a, b) => {
-      const ta = new Date(a.created_at ?? a.date).getTime();
-      const tb = new Date(b.created_at ?? b.date).getTime();
+      const ta = new Date(a.last_updated ?? a.created_at ?? a.date).getTime();
+      const tb = new Date(b.last_updated ?? b.created_at ?? b.date).getTime();
       return tb - ta;
     });
 
@@ -82,7 +82,7 @@ export default function FeedScreen() {
       ]);
       if (manualLocationId && manualLocationName) {
         const data = await api.nearbyArticlesByName(manualLocationName, 3);
-        const flat = dedupeById(data.groups.flatMap((g) => g.articles));
+        const flat = sortLatestFirst(dedupeById(data.groups.flatMap((g) => g.articles)));
         setArticles(flat);
         await notifyUrgent(flat);
         return;
@@ -91,7 +91,7 @@ export default function FeedScreen() {
       if (status === 'granted') {
         const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
         const data = await api.nearbyArticles(pos.coords.latitude, pos.coords.longitude, 3);
-        const flat = dedupeById(data.groups.flatMap((g) => g.articles));
+        const flat = sortLatestFirst(dedupeById(data.groups.flatMap((g) => g.articles)));
         setArticles(flat);
         await notifyUrgent(flat);
       } else {

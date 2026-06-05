@@ -82,7 +82,7 @@ export const api = {
         .filter((g) => g.articles.length > 0);
       return { groups, total: groups.reduce((n, g) => n + g.articles.length, 0) };
     }
-    return get(`/articles/near?lat=${lat}&lon=${lon}&precision_level=${precisionLevel}`);
+    return get(`/articles/near?lat=${lat}&lon=${lon}&precision_level=${precisionLevel}&search_level=1`);
   },
 
   nearbyArticlesByName: async (locationName: string, precisionLevel = 1): Promise<NearbyArticlesResponse> => {
@@ -101,7 +101,7 @@ export const api = {
         : [];
       return { groups, total: groups.reduce((n, g) => n + g.articles.length, 0) };
     }
-    return get(`/articles/near?location_name=${encodeURIComponent(locationName)}&precision_level=${precisionLevel}`);
+    return get(`/articles/near?location_name=${encodeURIComponent(locationName)}&precision_level=${precisionLevel}&search_level=1`);
   },
 
   addLocation: async (name: string, level: string, parent?: string): Promise<Location> => {
