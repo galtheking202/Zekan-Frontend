@@ -5,49 +5,37 @@ import { useRouter } from 'expo-router';
 import { Article } from '../types';
 import { Colors } from '../constants/colors';
 import CategoryBadge from './CategoryBadge';
-import CredibilityBar from './CredibilityBar';
 
-const SPRITE = require('../assets/hands animation.png');
-const COLS = 4;
-const ROWS = 2;
-const TOTAL_FRAMES = COLS * ROWS;
-const DISPLAY = 40;
+const FRAMES = [
+  require('../assets/hands_animation/Untitled_Artwork-1.png'),
+  require('../assets/hands_animation/Untitled_Artwork-2.png'),
+  require('../assets/hands_animation/Untitled_Artwork-3.png'),
+  require('../assets/hands_animation/Untitled_Artwork-4.png'),
+  require('../assets/hands_animation/Untitled_Artwork-6.png'),
+  require('../assets/hands_animation/Untitled_Artwork-8.png'),
+];
+const DISPLAY = 20;
 
 function AcknowledgeButton({ isRtl }: { isRtl: boolean }) {
   const [acked, setAcked] = useState(false);
+  const [frameIndex, setFrameIndex] = useState(0);
   const busy = useRef(false);
-  const frameX = useRef(new Animated.Value(0)).current;
-  const frameY = useRef(new Animated.Value(0)).current;
   const bump = useRef(new Animated.Value(1)).current;
-
-  const src = Image.resolveAssetSource(SPRITE);
-  const frameW = src.width / COLS;
-  const frameH = src.height / ROWS;
-  const ratio = DISPLAY / frameW;
-  const imgW = src.width * ratio;
-  const imgH = src.height * ratio;
-  const scaledFW = frameW * ratio;
-  const scaledFH = frameH * ratio;
-
-  const goToFrame = (f: number) => {
-    frameX.setValue(-(f % COLS) * scaledFW);
-    frameY.setValue(-Math.floor(f / COLS) * scaledFH);
-  };
 
   const play = () => {
     if (busy.current) return;
     busy.current = true;
-    goToFrame(0);
+    setFrameIndex(0);
 
     let f = 0;
     const step = () => {
       f++;
-      if (f >= TOTAL_FRAMES) {
+      if (f >= FRAMES.length) {
         busy.current = false;
         setAcked(true);
         return;
       }
-      goToFrame(f);
+      setFrameIndex(f);
       setTimeout(step, 75);
     };
     setTimeout(step, 75);
@@ -62,21 +50,18 @@ function AcknowledgeButton({ isRtl }: { isRtl: boolean }) {
   const reset = () => {
     if (busy.current) return;
     setAcked(false);
-    goToFrame(0);
+    setFrameIndex(0);
   };
 
   return (
     <Pressable
       onPress={acked ? reset : play}
       hitSlop={10}
-      style={[styles.ackBtn, isRtl ? { alignSelf: 'flex-start' } : { alignSelf: 'flex-end' }]}
+      style={styles.ackBtn}
     >
       <Animated.View style={{ transform: [{ scale: bump }] }}>
         <View style={styles.ackClip}>
-          <Animated.Image
-            source={SPRITE}
-            style={{ width: imgW, height: imgH, transform: [{ translateX: frameX }, { translateY: frameY }] }}
-          />
+          <Image source={FRAMES[frameIndex]} style={styles.ackFrame} resizeMode="cover" />
         </View>
       </Animated.View>
     </Pressable>
@@ -131,15 +116,17 @@ export default function ArticleCard({ article }: Props) {
           {!isHe && <Text style={[styles.time, { marginLeft: 'auto' }]}>{ago}</Text>}
         </View>
 
-        <Text style={[styles.title, isHe && styles.rtl]} numberOfLines={2}>
-          {content.title}
-        </Text>
-        <Text style={[styles.summary, isHe && styles.rtl]} numberOfLines={3}>
-          {content.summary}
-        </Text>
-
-        <CredibilityBar score={article.credibility_score} />
-        <AcknowledgeButton isRtl={isHe} />
+        <View style={[styles.contentRow, isHe && styles.contentRowRtl]}>
+          <View style={styles.textCol}>
+            <Text style={[styles.title, isHe && styles.rtl]} numberOfLines={2}>
+              {content.title}
+            </Text>
+            <Text style={[styles.summary, isHe && styles.rtl]} numberOfLines={3}>
+              {content.summary}
+            </Text>
+          </View>
+          <AcknowledgeButton isRtl={isHe} />
+        </View>
       </View>
     </Pressable>
   );
@@ -195,6 +182,10 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     writingDirection: 'rtl',
   },
-  ackBtn: { marginTop: 2 },
+  contentRow: { flexDirection: 'row', alignItems: 'flex-end', gap: 8 },
+  contentRowRtl: { flexDirection: 'row-reverse' },
+  textCol: { flex: 1 },
+  ackBtn: {},
   ackClip: { width: DISPLAY, height: DISPLAY, overflow: 'hidden' },
+  ackFrame: { width: DISPLAY, height: DISPLAY },
 });
