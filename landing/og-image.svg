@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="60%" y2="100%">
+      <stop offset="0%"   stop-color="#68B4F0"/>
+      <stop offset="55%"  stop-color="#3A8FD6"/>
+      <stop offset="100%" stop-color="#2575C4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Wordmark: Ze -->
+  <text
+    x="600" y="310"
+    font-family="-apple-system, BlinkMacSystemFont, Helvetica Neue, Arial, sans-serif"
+    font-size="220"
+    font-weight="800"
+    letter-spacing="-6"
+    text-anchor="middle"
+    fill="#ffffff"
+  >Ze<tspan fill="rgba(255,255,255,0.42)">K</tspan>an</text>
+
+  <!-- Tagline -->
+  <text
+    x="600" y="390"
+    font-family="-apple-system, BlinkMacSystemFont, Helvetica Neue, Arial, sans-serif"
+    font-size="36"
+    font-weight="400"
+    text-anchor="middle"
+    fill="rgba(255,255,255,0.72)"
+  >כאן ועכשיו, בלי רעשי רקע.</text>
+</svg>
