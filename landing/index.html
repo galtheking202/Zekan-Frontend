@@ -206,9 +206,11 @@
       btn.textContent = '...';
 
       try {
-        // Replace with real endpoint:
-        // await fetch('/api/waitlist', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ email }) });
-        await new Promise(r => setTimeout(r, 600));
+        await fetch('https://server-lowcost.up.railway.app/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
 
         e.target.style.display = 'none';
         document.getElementById('success').style.display = 'flex';
