@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ZeKan · מדיניות פרטיות</title>
-  <meta name="description" content="מדיניות הפרטיות של ZeKan" />
+  <title>ZeKan · Privacy Policy</title>
+  <meta name="description" content="ZeKan Privacy Policy" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -32,6 +32,7 @@
       font-size: 14px;
       font-weight: 500;
       transition: color 0.15s;
+      margin-left: auto;
     }
 
     .back-link:hover { color: #ffffff; }
@@ -52,7 +53,6 @@
       letter-spacing: -1px;
       color: #ffffff;
       text-decoration: none;
-      margin-right: auto;
     }
 
     .wordmark-small .k {
@@ -61,7 +61,7 @@
 
     /* ── Content card ── */
     .container {
-      max-width: 720px;
+      max-width: 740px;
       margin: 40px auto 80px;
       padding: 0 24px;
     }
@@ -77,10 +77,11 @@
 
     @media (max-width: 600px) {
       .card { padding: 28px 24px; }
+      .header { padding: 20px 20px 0; }
     }
 
     h1 {
-      font-size: 28px;
+      font-size: 30px;
       font-weight: 800;
       color: #ffffff;
       margin-bottom: 6px;
@@ -89,15 +90,34 @@
     .last-updated {
       font-size: 13px;
       color: rgba(255, 255, 255, 0.5);
-      margin-bottom: 36px;
+      margin-bottom: 20px;
+    }
+
+    .intro {
+      font-size: 15px;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.82);
+      margin-bottom: 8px;
+    }
+
+    .intro + .intro {
+      margin-top: 10px;
     }
 
     h2 {
       font-size: 17px;
       font-weight: 700;
       color: #ffffff;
-      margin-top: 32px;
+      margin-top: 34px;
       margin-bottom: 10px;
+    }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.95);
+      margin-top: 18px;
+      margin-bottom: 8px;
     }
 
     p, li {
@@ -107,7 +127,7 @@
     }
 
     ul {
-      padding-right: 20px;
+      padding-left: 20px;
       margin-top: 8px;
       display: flex;
       flex-direction: column;
@@ -146,59 +166,88 @@
     <a href="/" class="wordmark-small">Ze<span class="k">K</span>an</a>
     <a href="/" class="back-link">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6" /></svg>
-      חזרה
+      Back
     </a>
   </div>
 
   <div class="container">
     <div class="card">
 
-      <h1>מדיניות פרטיות</h1>
-      <p class="last-updated">עדכון אחרון: יוני 2025</p>
+      <h1>Privacy Policy</h1>
+      <p class="last-updated">Last Updated: June 2026</p>
 
-      <p>ב-ZeKan אנחנו לוקחים את הפרטיות שלך ברצינות. מדיניות זו מסבירה אילו נתונים אנחנו אוספים, כיצד אנחנו משתמשים בהם, ואיזו שליטה יש לך עליהם.</p>
+      <p class="intro">Welcome to ZeKan ("we," "our," or "us"). We are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application (the "Application") available on the Google Play Store and Apple App Store.</p>
+      <p class="intro">Please read this Privacy Policy carefully. By downloading and using the Application, you agree to the collection and use of information in accordance with this policy.</p>
 
-      <h2>1. המידע שאנחנו אוספים</h2>
+      <h2>1. Information We Collect</h2>
+      <p>To provide you with hyper-local news and real-time notifications without unnecessary "background noise," we collect certain information:</p>
+
+      <h3>A. Location Data (Critical for App Functionality)</h3>
+      <p><strong style="color:#fff;">Precise Location:</strong> Because ZeKan delivers news based on your exact vicinity, the Application requires access to your device's precise location services (GPS and network-based).</p>
+      <p style="margin-top:10px;"><strong style="color:#fff;">Background Location (Optional but recommended for alerts):</strong> If you grant permission, the Application may access your location even when the app is closed or not in use, solely to send you critical, real-time push notifications regarding urgent local events or road closures directly relevant to your immediate physical area.</p>
+
+      <h3>B. Device and Usage Data</h3>
+      <p>We may collect standard device information, such as your mobile device ID, operating system version, device type, and basic usage statistics (e.g., how you interact with articles) to improve app performance and stability.</p>
+
+      <h3>C. Personal Data</h3>
+      <p><strong style="color:#fff;">No Mandatory Account Registration:</strong> ZeKan allows instant access without requiring a personal account, name, or password.</p>
+      <p style="margin-top:10px;"><strong style="color:#fff;">User-Generated Content:</strong> If you choose to report an event or submit a local update, we collect the text, image, and location associated with that specific submission.</p>
+
+      <h2>2. How We Use Your Information</h2>
+      <p>We use the collected information for the following purposes:</p>
       <ul>
-        <li><strong>כתובת אימייל</strong> — אם נרשמת לרשימת ההמתנה, אנחנו שומרים את כתובת האימייל שלך כדי לעדכן אותך לפני ההשקה.</li>
-        <li><strong>מיקום</strong> — האפליקציה עשויה לבקש גישה למיקומך כדי להציג חדשות רלוונטיות לאזורך. המיקום לא נשמר בשרתינו.</li>
-        <li><strong>נתוני שימוש</strong> — מידע טכני בסיסי כגון סוג המכשיר, גרסת מערכת ההפעלה, ושגיאות אפליקציה — לצורכי שיפור השירות בלבד.</li>
+        <li>To filter and display relevant local news based on your location.</li>
+        <li>To send targeted, urgent push notifications about critical events nearby.</li>
+        <li>To maintain, optimize, and improve the performance of the Application.</li>
+        <li>To prevent fraud, monitor spam, and ensure the safety of our community guidelines.</li>
       </ul>
 
-      <h2>2. כיצד אנחנו משתמשים במידע</h2>
+      <h2>3. Data Sharing and Third-Party Services</h2>
+      <p>We value your privacy and do not sell your data. We only share information in the following limited circumstances:</p>
       <ul>
-        <li>שליחת עדכון חד-פעמי לפני השקת האפליקציה למי שנרשם לרשימת ההמתנה.</li>
-        <li>הצגת תוכן חדשותי מותאם לפי אזורך הגאוגרפי.</li>
-        <li>זיהוי ותיקון תקלות טכניות בשירות.</li>
+        <li><strong style="color:#fff;">Cloud Infrastructure:</strong> We host our services using secure cloud providers (such as Railway) and utilize infrastructure services (such as Firebase Cloud Messaging) solely to process data and deliver push notifications.</li>
+        <li><strong style="color:#fff;">Legal Requirements:</strong> We may disclose your information if required to do so by law or in response to valid requests by public authorities.</li>
       </ul>
-      <p style="margin-top: 10px;">אנחנו <strong>לא</strong> מוכרים, משתפים, או מעבירים את המידע שלך לצדדים שלישיים לצורכי שיווק.</p>
 
-      <h2>3. אחסון ואבטחה</h2>
-      <p>המידע שלך מאוחסן בשרתים מאובטחים. כתובות אימייל של רשימת ההמתנה מאוחסנות ב-MongoDB ומוצפנות בתעבורה. אנחנו נוקטים באמצעי אבטחה סבירים כדי להגן על המידע מפני גישה לא מורשית.</p>
+      <h2>4. Apple iOS and Google Android Specific Disclosures</h2>
 
-      <h2>4. שמירת מידע</h2>
-      <p>כתובות אימייל מרשימת ההמתנה יישמרו עד לסיום תהליך ההשקה, ולאחר מכן יימחקו אלא אם תבקש/י להישאר ברשימת תפוצה של עדכונים עתידיים.</p>
-
-      <h2>5. זכויותיך</h2>
+      <h3>For iOS Users (Apple App Store)</h3>
       <ul>
-        <li><strong>עיון</strong> — תוכל/י לבקש לדעת אילו נתונים שלך שמורים אצלנו.</li>
-        <li><strong>מחיקה</strong> — תוכל/י לבקש מחיקת כתובת האימייל שלך בכל עת.</li>
-        <li><strong>ביטול הסכמה</strong> — תוכל/י להסיר את עצמך מרשימת ההמתנה בכל רגע.</li>
+        <li><strong style="color:#fff;">App Tracking Transparency (ATT):</strong> We do not track your activity across third-party apps or websites for advertising purposes.</li>
+        <li><strong style="color:#fff;">Location Permissions:</strong> You can manage or revoke location permissions at any time via your iOS Settings → Privacy → Location Services → ZeKan.</li>
       </ul>
-      <p style="margin-top: 10px;">לכל בקשה פנה/י אלינו בכתובת: <a href="mailto:privacy@zekan.news">privacy@zekan.news</a></p>
 
-      <h2>6. עוגיות (Cookies)</h2>
-      <p>דף הנחיתה אינו משתמש בעוגיות מעקב. האפליקציה עשויה לשמור העדפות מקומיות במכשירך בלבד.</p>
+      <h3>For Android Users (Google Play Store)</h3>
+      <ul>
+        <li><strong style="color:#fff;">Google Play Developer Policies:</strong> We comply strictly with Google's Prominent Disclosure requirements regarding location data. Background location is used strictly to trigger urgent local push notifications.</li>
+        <li>You can modify or turn off location access at any time through your Android Device Settings → Apps → ZeKan → Permissions.</li>
+      </ul>
 
-      <h2>7. שינויים במדיניות</h2>
-      <p>אם נשנה מדיניות זו בצורה מהותית, נעדכן את תאריך ה"עדכון אחרון" בראש הדף. המשך השימוש בשירות לאחר שינוי כזה מהווה הסכמה לתנאים המעודכנים.</p>
+      <h2>5. Data Retention and Deletion</h2>
+      <ul>
+        <li><strong style="color:#fff;">Location History:</strong> We do not keep a permanent history of your movements. Your current location token is updated dynamically to serve you local news and is overwritten regularly.</li>
+        <li><strong style="color:#fff;">User Contributions:</strong> Content submitted by users (such as public local reports) will remain on our servers as part of the local news feed until deleted by us or requested by the creator.</li>
+      </ul>
+
+      <h2>6. Children's Privacy</h2>
+      <p>Our services do not address anyone under the age of 13. We do not knowingly collect personally identifiable information from children under 13. If we discover that a child under 13 has provided us with personal information, we immediately delete this from our servers.</p>
+
+      <h2>7. Changes to This Privacy Policy</h2>
+      <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date. You are advised to review this Privacy Policy periodically for any changes.</p>
+
+      <h2>8. Contact Us</h2>
+      <p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us:</p>
+      <ul style="margin-top:10px;">
+        <li><strong style="color:#fff;">Email:</strong> <a href="mailto:zekan.news@gmail.com">zekan.news@gmail.com</a></li>
+        <li><strong style="color:#fff;">Developer:</strong> Zekan</li>
+      </ul>
 
       <div class="divider"></div>
 
     </div>
   </div>
 
-  <footer class="footer">© 2025 Zekan · כל הזכויות שמורות</footer>
+  <footer class="footer">© 2025 Zekan · All rights reserved</footer>
 
 </body>
 </html>
