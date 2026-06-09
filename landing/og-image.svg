@@ -28,6 +28,7 @@
     font-size="36"
     font-weight="400"
     text-anchor="middle"
+    direction="rtl"
     fill="rgba(255,255,255,0.72)"
   >כאן ועכשיו, בלי רעשי רקע.</text>
 </svg>
