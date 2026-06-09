@@ -23,9 +23,6 @@ import { SupportedLanguage, LANGUAGE_NAMES } from '../../lib/i18n';
 import { Colors } from '../../constants/colors';
 import { api } from '../../services/api';
 import { Location } from '../../types';
-
-
-const DEBUG_MODE_KEY = '@zekan/debug_mode';
 const MANUAL_LOCATION_ID_KEY = '@zekan/manual_location_id';
 const MANUAL_LOCATION_NAME_KEY = '@zekan/manual_location_name';
 const URGENT_NOTIFICATIONS_KEY = '@zekan/urgent_notifications';
@@ -35,7 +32,6 @@ export default function SettingsScreen() {
   const rtl = i18n.language === 'he';
   const [langPref, setLangPref] = useState<SupportedLanguage | null>(null);
   const [contributeOpen, setContributeOpen] = useState(false);
-  const [debugMode, setDebugMode] = useState(false);
   const [urgentNotifications, setUrgentNotifications] = useState(true);
   const [manualLocationId, setManualLocationId] = useState<string | null>(null);
   const [manualLocationName, setManualLocationName] = useState<string | null>(null);
@@ -46,17 +42,10 @@ export default function SettingsScreen() {
 
   useEffect(() => {
     getUserLanguagePref().then(setLangPref);
-    AsyncStorage.getItem(DEBUG_MODE_KEY).then((v) => setDebugMode(v === 'true'));
     AsyncStorage.getItem(URGENT_NOTIFICATIONS_KEY).then((v) => setUrgentNotifications(v !== 'false'));
     AsyncStorage.getItem(MANUAL_LOCATION_ID_KEY).then(setManualLocationId);
     AsyncStorage.getItem(MANUAL_LOCATION_NAME_KEY).then(setManualLocationName);
   }, []);
-
-  const toggleDebugMode = async () => {
-    const next = !debugMode;
-    setDebugMode(next);
-    await AsyncStorage.setItem(DEBUG_MODE_KEY, String(next));
-  };
 
   const toggleUrgentNotifications = async () => {
     const next = !urgentNotifications;
@@ -226,19 +215,6 @@ export default function SettingsScreen() {
           </Pressable>
         </View>
 
-        <SectionHeader label={t('settings.developer')} rtl={rtl} />
-        <View style={styles.card}>
-          <Pressable style={[styles.row, { flexDirection: rowDir }]} onPress={toggleDebugMode}>
-            <View style={[styles.rowText, { alignItems: rtl ? 'flex-end' : 'flex-start' }]}>
-              <Text style={[styles.rowLabel, { textAlign }]}>{t('settings.debugMode')}</Text>
-              <Text style={[styles.rowDesc, { textAlign }]}>{t('settings.debugModeDesc')}</Text>
-            </View>
-            <Text style={[styles.rowValue, debugMode && { color: Colors.primary, fontWeight: '700' }]}>
-              {debugMode ? '●' : '○'}
-            </Text>
-          </Pressable>
-        </View>
-
         <SectionHeader label={t('settings.about')} rtl={rtl} />
         <View style={styles.card}>
           <View style={[styles.row, { flexDirection: rowDir }]}>
@@ -379,4 +355,5 @@ const styles = StyleSheet.create({
     color: Colors.text,
     backgroundColor: Colors.surface,
   },
+
 });

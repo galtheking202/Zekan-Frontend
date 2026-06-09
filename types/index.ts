@@ -8,7 +8,7 @@ export interface Article {
   date: string;
   created_at: string | null;
   last_updated: string | null;
-  imageUrl: string | null;
+  imageUrl: string | number | null;
   credibility_score: number | null;
   external_sources: string[] | null;
   area_exterior: GeoJSONGeometry | null;
@@ -26,6 +26,7 @@ export interface LanguageContent {
   summary: string;
   body?: string | null;
   key_facts?: string[] | null;
+  region?: string | null;
 }
 
 export interface GeoJSONGeometry {

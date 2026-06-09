@@ -25,7 +25,6 @@ function dedupeById(articles: Article[]): Article[] {
   return articles.filter((a) => !seen.has(a.id) && !!seen.add(a.id));
 }
 
-const DEBUG_MODE_KEY = '@zekan/debug_mode';
 const MANUAL_LOCATION_ID_KEY = '@zekan/manual_location_id';
 const MANUAL_LOCATION_NAME_KEY = '@zekan/manual_location_name';
 const URGENT_NOTIFICATIONS_KEY = '@zekan/urgent_notifications';
@@ -69,19 +68,12 @@ export default function FeedScreen() {
     try {
       if (!isRefresh) setLoading(true);
       setError(false);
-      const debugMode = (await AsyncStorage.getItem(DEBUG_MODE_KEY)) === 'true';
-      if (debugMode) {
-        const data = await api.articles();
-        setArticles(sortLatestFirst(data));
-        await notifyUrgent(data);
-        return;
-      }
       const [[, manualLocationId], [, manualLocationName]] = await AsyncStorage.multiGet([
         MANUAL_LOCATION_ID_KEY,
         MANUAL_LOCATION_NAME_KEY,
       ]);
       if (manualLocationId && manualLocationName) {
-        const data = await api.nearbyArticlesByName(manualLocationName, 3);
+        const data = await api.nearbyArticlesByName(manualLocationName);
         const flat = sortLatestFirst(dedupeById(data.groups.flatMap((g) => g.articles)));
         setArticles(flat);
         await notifyUrgent(flat);
@@ -90,7 +82,7 @@ export default function FeedScreen() {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status === 'granted') {
         const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
-        const data = await api.nearbyArticles(pos.coords.latitude, pos.coords.longitude, 3);
+        const data = await api.nearbyArticles(pos.coords.latitude, pos.coords.longitude);
         const flat = sortLatestFirst(dedupeById(data.groups.flatMap((g) => g.articles)));
         setArticles(flat);
         await notifyUrgent(flat);
@@ -125,7 +117,7 @@ export default function FeedScreen() {
     <SafeAreaView style={styles.container}>
       <View style={[styles.header, { flexDirection: rtl ? 'row-reverse' : 'row' }]}>
         <View style={[styles.titleRow, { flexDirection: rtl ? 'row-reverse' : 'row' }]}>
-          <Image source={require('../../Zekan logo.png')} style={styles.logo} resizeMode="contain" />
+          <Image source={require('../../assets/Zekan_icon.png')} style={styles.logo} resizeMode="contain" />
           <Text style={styles.title}>{t('feed.title')}</Text>
         </View>
         <Pressable onPress={() => router.navigate('/(tabs)/search')} style={styles.searchBtn}>

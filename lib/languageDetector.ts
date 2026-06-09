@@ -1,7 +1,7 @@
 import * as Localization from 'expo-localization';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { I18nManager } from 'react-native';
-import i18n, { SupportedLanguage, SUPPORTED_LANGUAGES, isRTL } from './i18n';
+import i18n, { i18nReady, SupportedLanguage, SUPPORTED_LANGUAGES, isRTL } from './i18n';
 
 const STORAGE_KEY = '@zekan/language';
 
@@ -34,6 +34,7 @@ function detectLanguageFromDevice(): SupportedLanguage {
 }
 
 export async function applyLanguage(lang: SupportedLanguage): Promise<void> {
+  await i18nReady;
   await i18n.changeLanguage(lang);
   const rtl = isRTL(lang);
   I18nManager.allowRTL(true);

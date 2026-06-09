@@ -10,7 +10,6 @@ const FRAMES = [
   require('../assets/hands_animation/Untitled_Artwork-1.png'),
   require('../assets/hands_animation/Untitled_Artwork-2.png'),
   require('../assets/hands_animation/Untitled_Artwork-3.png'),
-  require('../assets/hands_animation/Untitled_Artwork-4.png'),
   require('../assets/hands_animation/Untitled_Artwork-6.png'),
   require('../assets/hands_animation/Untitled_Artwork-8.png'),
 ];
@@ -104,7 +103,7 @@ export default function ArticleCard({ article }: Props) {
       onPress={() => router.push(`/article/${article.id}`)}
     >
       {article.imageUrl ? (
-        <Image source={{ uri: article.imageUrl }} style={styles.image} resizeMode="cover" />
+        <Image source={typeof article.imageUrl === 'number' ? article.imageUrl : { uri: article.imageUrl as string }} style={styles.image} resizeMode="cover" />
       ) : null}
       <View style={styles.body}>
         <View style={styles.meta}>
@@ -125,7 +124,7 @@ export default function ArticleCard({ article }: Props) {
               {content.summary}
             </Text>
           </View>
-          <AcknowledgeButton isRtl={isHe} />
+          {/* <AcknowledgeButton isRtl={isHe} /> */}
         </View>
       </View>
     </Pressable>

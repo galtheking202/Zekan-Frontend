@@ -81,7 +81,9 @@
     "locationSearch": "Search locations...",
     "notifications": "Notifications",
     "urgentNotifications": "Urgent alerts",
-    "urgentNotificationsDesc": "Get notified when breaking news arrives"
+    "urgentNotificationsDesc": "Get notified when breaking news arrives",
+    "mockMode": "Mock mode",
+    "mockModeDesc": "Show built-in demo articles instead of the live API"
   },
   "common": {
     "loading": "Loading...",

@@ -59,7 +59,7 @@ export default function MapScreen() {
       const pos = await Location.getCurrentPositionAsync({
         accuracy: Location.Accuracy.Balanced,
       });
-      const data = await api.nearbyArticles(pos.coords.latitude, pos.coords.longitude, level);
+      const data = await api.nearbyArticles(pos.coords.latitude, pos.coords.longitude);
       setNearbyGroups(data.groups);
       setNearbyFetched(true);
     } catch {

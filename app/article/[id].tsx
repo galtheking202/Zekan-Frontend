@@ -99,14 +99,14 @@ export default function ArticleDetailScreen() {
 
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         {article.imageUrl ? (
-          <Image source={{ uri: article.imageUrl }} style={styles.hero} resizeMode="cover" />
+          <Image source={typeof article.imageUrl === 'number' ? article.imageUrl : { uri: article.imageUrl as string }} style={styles.hero} resizeMode="cover" />
         ) : null}
 
         <View style={styles.body}>
           {/* Meta */}
           <View style={[styles.metaRow, { flexDirection: rtl ? 'row-reverse' : 'row' }]}>
             <CategoryBadge category={article.category} />
-            {article.region ? <Text style={styles.region}>{article.region}</Text> : null}
+            {(content.region ?? article.region) ? <Text style={styles.region}>{content.region ?? article.region}</Text> : null}
           </View>
 
           {/* Title */}

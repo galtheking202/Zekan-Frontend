@@ -3,7 +3,7 @@
     "name": "זה-כאן"
   },
   "tabs": {
-    "feed": "עדכון",
+    "feed": "עדכונים",
     "search": "חיפוש",
     "map": "מפה",
     "debug": "דיבאג",
@@ -81,7 +81,9 @@
     "locationSearch": "חפש מיקומים...",
     "notifications": "התראות",
     "urgentNotifications": "התראות חדשות דחופות",
-    "urgentNotificationsDesc": "קבל התראה כאשר מגיעות חדשות דחופות"
+    "urgentNotificationsDesc": "קבל התראה כאשר מגיעות חדשות דחופות",
+    "mockMode": "מצב דמו",
+    "mockModeDesc": "הצג כתבות דמו מובנות במקום ה-API החי"
   },
   "common": {
     "loading": "טוען...",

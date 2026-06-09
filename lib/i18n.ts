@@ -17,7 +17,7 @@ export function isRTL(lang: string): boolean {
   return RTL_LANGUAGES.includes(lang as SupportedLanguage);
 }
 
-i18n.use(initReactI18next).init({
+export const i18nReady = i18n.use(initReactI18next).init({
   resources: {
     en: { translation: en },
     he: { translation: he },
