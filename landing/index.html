@@ -160,6 +160,14 @@
       text-align: center;
       pointer-events: none;
     }
+
+    .footer a {
+      color: rgba(255, 255, 255, 0.55);
+      text-decoration: none;
+      pointer-events: all;
+    }
+
+    .footer a:hover { color: rgba(255, 255, 255, 0.85); }
   </style>
 </head>
 <body>
@@ -193,7 +201,7 @@
 
   </main>
 
-  <footer class="footer">© 2025 Zekan · כל הזכויות שמורות</footer>
+  <footer class="footer">© 2025 Zekan · כל הזכויות שמורות · <a href="/privacy">מדיניות פרטיות</a></footer>
 
   <script>
     document.getElementById('form').addEventListener('submit', async (e) => {
