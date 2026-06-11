@@ -5,32 +5,25 @@
       <stop offset="55%"  stop-color="#3A8FD6"/>
       <stop offset="100%" stop-color="#2575C4"/>
     </linearGradient>
-    <radialGradient id="bubble1" cx="50%" cy="50%" r="50%">
-      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.22"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="bubble2" cx="50%" cy="50%" r="50%">
-      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="bubble3" cx="50%" cy="50%" r="50%">
-      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.14"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="bubble4" cx="50%" cy="50%" r="50%">
-      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.10"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </radialGradient>
+    <filter id="blur1" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="55"/>
+    </filter>
+    <filter id="blur2" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="65"/>
+    </filter>
+    <filter id="blur3" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="45"/>
+    </filter>
   </defs>
 
   <!-- Background -->
   <rect width="1200" height="630" fill="url(#bg)"/>
 
   <!-- Bubbly blobs -->
-  <ellipse cx="200" cy="120" rx="320" ry="300" fill="url(#bubble1)"/>
-  <ellipse cx="1050" cy="500" rx="300" ry="280" fill="url(#bubble2)"/>
-  <ellipse cx="980" cy="100" rx="220" ry="200" fill="url(#bubble3)"/>
-  <ellipse cx="150" cy="540" rx="240" ry="220" fill="url(#bubble4)"/>
+  <circle cx="260"  cy="160"  r="280" fill="rgba(255,255,255,0.28)" filter="url(#blur1)"/>
+  <circle cx="980"  cy="480"  r="260" fill="rgba(255,255,255,0.22)" filter="url(#blur2)"/>
+  <circle cx="1020" cy="130"  r="200" fill="rgba(255,255,255,0.18)" filter="url(#blur3)"/>
+  <circle cx="180"  cy="530"  r="210" fill="rgba(255,255,255,0.15)" filter="url(#blur3)"/>
 
   <!-- Wordmark -->
   <text
