@@ -5,12 +5,34 @@
       <stop offset="55%"  stop-color="#3A8FD6"/>
       <stop offset="100%" stop-color="#2575C4"/>
     </linearGradient>
+    <radialGradient id="bubble1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bubble2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bubble3" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bubble4" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
   </defs>
 
   <!-- Background -->
   <rect width="1200" height="630" fill="url(#bg)"/>
 
-  <!-- Wordmark: Ze -->
+  <!-- Bubbly blobs -->
+  <ellipse cx="200" cy="120" rx="320" ry="300" fill="url(#bubble1)"/>
+  <ellipse cx="1050" cy="500" rx="300" ry="280" fill="url(#bubble2)"/>
+  <ellipse cx="980" cy="100" rx="220" ry="200" fill="url(#bubble3)"/>
+  <ellipse cx="150" cy="540" rx="240" ry="220" fill="url(#bubble4)"/>
+
+  <!-- Wordmark -->
   <text
     x="600" y="310"
     font-family="-apple-system, BlinkMacSystemFont, Helvetica Neue, Arial, sans-serif"
