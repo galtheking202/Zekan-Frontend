@@ -1,5 +1,10 @@
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
+# Credentials (never commit these)
+*.json.key
+zekan-499510-a61c4bafe3c6.json
+*.p8
+
 # dependencies
 node_modules/
 

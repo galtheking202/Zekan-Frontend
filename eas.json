@@ -16,6 +16,20 @@
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./zekan-499510-a61c4bafe3c6.json",
+        "track": "production",
+        "releaseStatus": "draft"
+      },
+      "ios": {
+        "appleId": "galshaulker@gmail.com",
+        "ascAppId": "6778926304",
+        "appleTeamId": "KW2MH4PS7N",
+        "ascApiKeyPath": "./AuthKey_AKFSV5S65Q.p8",
+        "ascApiKeyId": "AKFSV5S65Q",
+        "ascApiKeyIssuerId": "b11c378c-7ec8-4c07-bfc6-f7d9c4e835c6"
+      }
+    }
   }
 }
