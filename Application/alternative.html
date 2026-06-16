@@ -1,27 +1,9 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ZeKan — כאן ועכשיו, בלי רעשי רקע.</title>
-  <meta name="description" content="חדשות היפר-מקומיות בזמן אמת. כאן ועכשיו, בלי רעשי רקע." />
-
-  <!-- Open Graph -->
-  <meta property="og:type"        content="website" />
-  <meta property="og:url"         content="https://zekan.news/" />
-  <meta property="og:title"       content="ZeKan — כאן ועכשיו, בלי רעשי רקע." />
-  <meta property="og:description" content="חדשות היפר-מקומיות בזמן אמת. כאן ועכשיו, בלי רעשי רקע." />
-  <meta property="og:image"       content="https://zekan.news/og-image.svg" />
-  <meta property="og:image:width"  content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:locale"      content="he_IL" />
-  <meta property="og:site_name"   content="ZeKan" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="ZeKan — כאן ועכשיו, בלי רעשי רקע." />
-  <meta name="twitter:description" content="חדשות היפר-מקומיות בזמן אמת. כאן ועכשיו, בלי רעשי רקע." />
-  <meta name="twitter:image"       content="https://zekan.news/og-image.svg" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZeKan — כאן ועכשיו, בלי רעשי רקע.</title>
 <style>
   :root{
     --blue-dark:#3E7FD6;
@@ -173,50 +155,11 @@
     cursor:pointer;
   }
   button:hover{ background:var(--field-bg); }
-  button:disabled{ opacity:0.6; cursor:default; }
 
   .fine{
     font-size:13px;
     color:var(--text-muted);
     margin-bottom:48px;
-  }
-
-  /* ── Success ── */
-  .success{
-    display:none;
-    flex-direction:column;
-    align-items:center;
-    gap:10px;
-    margin-bottom:48px;
-  }
-  .success-icon{
-    width:52px;
-    height:52px;
-    background:rgba(255,255,255,0.2);
-    border:2px solid rgba(255,255,255,0.6);
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin-bottom:4px;
-  }
-  .success-icon svg{
-    width:24px;
-    height:24px;
-    stroke:#fff;
-    stroke-width:2.5;
-    fill:none;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-  }
-  .success-text{
-    font-size:17px;
-    font-weight:600;
-    color:var(--white);
-  }
-  .success-sub{
-    font-size:14px;
-    color:var(--text-muted);
   }
 
   footer{
@@ -252,7 +195,7 @@
     <h1 class="logo">Ze<span class="k">K</span>an</h1>
     <p class="tagline">כאן ועכשיו, בלי רעשי רקע.</p>
 
-    <p class="coming-soon">הדרך החדשה לצרוך חדשות בקרוב</p>
+    <p class="coming-soon">בקרוב, הדרך החדשה לצרוך חדשות.</p>
 
     <div class="features">
       <span class="feature">
@@ -269,33 +212,16 @@
       </span>
     </div>
 
-    <form id="form">
-      <input
-        id="email"
-        type="email"
-        name="email"
-        placeholder="your@email.com"
-        autocomplete="email"
-        required
-      />
-      <button class="submit-btn" type="submit">עדכנו אותי!</button>
+    <form>
+      <input type="email" placeholder="your@email.com" required>
+      <button type="submit">עדכנו אותי!</button>
     </form>
     <div class="fine">ללא ספאם. ניצור קשר רק לפני השקת האפליקציה.</div>
 
-    <div class="success" id="success">
-      <div class="success-icon">
-        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" /></svg>
-      </div>
-      <span class="success-text">נרשמת בהצלחה</span>
-      <span class="success-sub">נעדכן אותך כשנהיה מוכנים.</span>
-    </div>
-
     <footer>
-      © Zekan 2025 · כל הזכויות שמורות · <a href="/privacy">מדיניות פרטיות</a>
+      © Zekan 2025 · כל הזכויות שמורות · <a href="https://zekan.news/privacy">מדיניות פרטיות</a>
     </footer>
 
   </div>
-
-  <script src="/form.js?v=2"></script>
 </body>
 </html>
