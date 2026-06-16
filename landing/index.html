@@ -22,181 +22,255 @@
   <meta name="twitter:title"       content="ZeKan — כאן ועכשיו, בלי רעשי רקע." />
   <meta name="twitter:description" content="חדשות היפר-מקומיות בזמן אמת. כאן ועכשיו, בלי רעשי רקע." />
   <meta name="twitter:image"       content="https://zekan.news/og-image.svg" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<style>
+  :root{
+    --blue-dark:#3E7FD6;
+    --blue-light:#6FA8E8;
+    --white:#FFFFFF;
+    --field-bg:#EEF3FA;
+    --text-muted:#E3EDFB;
+    --accent:#9FC4ED;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:radial-gradient(circle at 30% 20%, var(--blue-light), var(--blue-dark) 70%);
+    color:var(--white);
+    font-family:'Segoe UI', Arial, sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px 20px;
+    position:relative;
+    overflow:hidden;
+  }
 
-    html, body {
-      height: 100%;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
+  .bubbles{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+  }
+  .bubble{
+    position:absolute;
+    bottom:-150px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.12);
+    animation:rise linear infinite;
+  }
+  .bubble:nth-child(1){ width:60px; height:60px; left:8%; animation-duration:18s; animation-delay:0s; }
+  .bubble:nth-child(2){ width:30px; height:30px; left:22%; animation-duration:12s; animation-delay:2s; background:rgba(255,255,255,0.18); }
+  .bubble:nth-child(3){ width:90px; height:90px; left:38%; animation-duration:24s; animation-delay:1s; }
+  .bubble:nth-child(4){ width:24px; height:24px; left:52%; animation-duration:10s; animation-delay:4s; background:rgba(255,255,255,0.2); }
+  .bubble:nth-child(5){ width:50px; height:50px; left:65%; animation-duration:20s; animation-delay:0.5s; }
+  .bubble:nth-child(6){ width:38px; height:38px; left:78%; animation-duration:15s; animation-delay:3s; background:rgba(255,255,255,0.16); }
+  .bubble:nth-child(7){ width:70px; height:70px; left:88%; animation-duration:22s; animation-delay:2.5s; }
+  .bubble:nth-child(8){ width:20px; height:20px; left:14%; animation-duration:9s; animation-delay:5s; background:rgba(255,255,255,0.22); }
+  .bubble:nth-child(9){ width:45px; height:45px; left:45%; animation-duration:16s; animation-delay:6s; }
+  .bubble:nth-child(10){ width:34px; height:34px; left:95%; animation-duration:13s; animation-delay:1.5s; background:rgba(255,255,255,0.18); }
 
-    .page {
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 24px;
-      background: linear-gradient(160deg, #68B4F0 0%, #3A8FD6 55%, #2575C4 100%);
-    }
+  @keyframes rise{
+    0%{ transform:translateY(0) translateX(0); opacity:0; }
+    10%{ opacity:1; }
+    50%{ transform:translateY(-50vh) translateX(20px); }
+    90%{ opacity:1; }
+    100%{ transform:translateY(-110vh) translateX(-15px); opacity:0; }
+  }
 
-    /* ── Wordmark ── */
-    .wordmark {
-      font-size: clamp(72px, 18vw, 120px);
-      font-weight: 800;
-      letter-spacing: -3px;
-      line-height: 1;
-      color: #ffffff;
-      margin-bottom: 20px;
-      user-select: none;
-    }
+  @media (prefers-reduced-motion: reduce){
+    .bubble{ animation:none; opacity:0.1; }
+  }
 
-    .wordmark .k {
-      color: rgba(255, 255, 255, 0.45);
-    }
+  .wrap{
+    max-width:520px;
+    width:100%;
+    text-align:center;
+    position:relative;
+    z-index:1;
+  }
 
-    /* ── Tagline ── */
-    .tagline {
-      font-size: clamp(16px, 4vw, 20px);
-      font-weight: 400;
-      color: rgba(255, 255, 255, 0.75);
-      letter-spacing: 0.2px;
-      margin-bottom: 52px;
-      text-align: center;
-    }
+  h1.logo{
+    font-size:72px;
+    font-weight:800;
+    letter-spacing:-0.01em;
+    margin:0 0 20px;
+    line-height:1;
+  }
+  h1.logo .k{ color:var(--accent); }
 
-    /* ── Form ── */
-    .form-row {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      width: 100%;
-      max-width: 400px;
-    }
+  p.tagline{
+    font-size:20px;
+    color:var(--text-muted);
+    margin:0 0 18px;
+  }
 
-    .email-input {
-      flex: 1;
-      height: 124px;
-      padding: 18px;
-      border: none;
-      border-radius: 18px;
-      font-size: 20px;
-      color: #111;
-      background: rgba(255, 255, 255, 0.92);
-      outline: none;
-      transition: background 0.15s, box-shadow 0.15s;
-      direction: ltr;
-      text-align: left;
-    }
+  .coming-soon{
+    font-size:22px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:0 0 22px;
+  }
 
-    .email-input::placeholder {
-      color: #999;
-    }
+  .features{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    margin-bottom:40px;
+    flex-wrap:nowrap;
+  }
+  .feature{
+    font-size:13px;
+    color:var(--white);
+    display:flex;
+    align-items:center;
+    gap:6px;
+    padding:10px 14px;
+    border:1px solid rgba(255,255,255,0.35);
+    border-radius:10px;
+    background:rgba(255,255,255,0.06);
+    white-space:nowrap;
+  }
+  .feature svg{
+    width:18px;
+    height:18px;
+    flex-shrink:0;
+    color:var(--accent);
+  }
 
-    .email-input:focus {
-      background: #ffffff;
-      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35);
-    }
+  form{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-bottom:14px;
+  }
+  input[type="email"]{
+    padding:18px 22px;
+    border:none;
+    border-radius:14px;
+    background:var(--field-bg);
+    font-size:16px;
+    color:#1B1B1B;
+    text-align:right;
+  }
+  input[type="email"]::placeholder{
+    color:#9AA5B1;
+    text-align:left;
+  }
+  input[type="email"]:focus{
+    outline:3px solid var(--accent);
+  }
+  button{
+    padding:18px 22px;
+    border:none;
+    border-radius:14px;
+    background:var(--white);
+    color:var(--blue-dark);
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+  }
+  button:hover{ background:var(--field-bg); }
+  button:disabled{ opacity:0.6; cursor:default; }
 
-    .submit-btn {
-      height: 52px;
-      padding: 0 24px;
-      background: #ffffff;
-      color: #1A73E8;
-      border: none;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: opacity 0.15s, transform 0.1s;
-    }
+  .fine{
+    font-size:13px;
+    color:var(--text-muted);
+    margin-bottom:48px;
+  }
 
-    .submit-btn:hover { opacity: 0.92; }
-    .submit-btn:active { transform: scale(0.97); }
-    .submit-btn:disabled { opacity: 0.6; cursor: default; }
+  /* ── Success ── */
+  .success{
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    margin-bottom:48px;
+  }
+  .success-icon{
+    width:52px;
+    height:52px;
+    background:rgba(255,255,255,0.2);
+    border:2px solid rgba(255,255,255,0.6);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:4px;
+  }
+  .success-icon svg{
+    width:24px;
+    height:24px;
+    stroke:#fff;
+    stroke-width:2.5;
+    fill:none;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+  .success-text{
+    font-size:17px;
+    font-weight:600;
+    color:var(--white);
+  }
+  .success-sub{
+    font-size:14px;
+    color:var(--text-muted);
+  }
 
-    /* ── Success ── */
-    .success {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
+  footer{
+    font-size:13px;
+    color:var(--text-muted);
+  }
+  footer a{ color:var(--text-muted); text-decoration:underline; }
 
-    .success-icon {
-      width: 52px;
-      height: 52px;
-      background: rgba(255,255,255,0.2);
-      border: 2px solid rgba(255,255,255,0.6);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 4px;
-    }
-
-    .success-icon svg {
-      width: 24px;
-      height: 24px;
-      stroke: white;
-      stroke-width: 2.5;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .success-text {
-      font-size: 17px;
-      font-weight: 600;
-      color: #ffffff;
-    }
-
-    .success-sub {
-      font-size: 14px;
-      color: rgba(255,255,255,0.7);
-    }
-
-    .submit-btn { width: 100%; }
-
-    .form-note {
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.55);
-      text-align: center;
-      margin-top: 4px;
-    }
-
-    .footer {
-      position: fixed;
-      bottom: 20px;
-      left: 0;
-      right: 0;
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.45);
-      text-align: center;
-      pointer-events: none;
-    }
-
-    .footer a {
-      color: rgba(255, 255, 255, 0.55);
-      text-decoration: none;
-      pointer-events: all;
-    }
-
-    .footer a:hover { color: rgba(255, 255, 255, 0.85); }
-  </style>
+  @media (max-width:480px){
+    h1.logo{font-size:52px;}
+    p.tagline{font-size:17px;}
+    .features{gap:8px;}
+    .feature{font-size:11px; padding:8px 10px;}
+    .feature svg{width:14px; height:14px;}
+  }
+</style>
 </head>
 <body>
-  <main class="page">
+  <div class="bubbles">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+  <div class="wrap">
 
-    <h1 class="wordmark">Ze<span class="k">K</span>an</h1>
-
+    <h1 class="logo">Ze<span class="k">K</span>an</h1>
     <p class="tagline">כאן ועכשיו, בלי רעשי רקע.</p>
 
-    <form class="form-row" id="form">
+    <p class="coming-soon">בקרוב, הדרך החדשה לצרוך חדשות.</p>
+
+    <div class="features">
+      <span class="feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        עדכונים מהאזור שלך
+      </span>
+      <span class="feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        בזמן אמת
+      </span>
+      <span class="feature">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L14.7 3.86a2 2 0 0 0-3.4 0z"/></svg>
+        רק מה שחשוב
+      </span>
+    </div>
+
+    <form id="form">
       <input
-        class="email-input"
         id="email"
         type="email"
         name="email"
@@ -205,8 +279,8 @@
         required
       />
       <button class="submit-btn" type="submit">עדכנו אותי!</button>
-      <p class="form-note">ללא ספאם. ניצור קשר רק לפני ההשקה.</p>
     </form>
+    <div class="fine">ללא ספאם. ניצור קשר רק לפני השקת האפליקציה.</div>
 
     <div class="success" id="success">
       <div class="success-icon">
@@ -216,9 +290,11 @@
       <span class="success-sub">נעדכן אותך כשנהיה מוכנים.</span>
     </div>
 
-  </main>
+    <footer>
+      © Zekan 2025 · כל הזכויות שמורות · <a href="/privacy">מדיניות פרטיות</a>
+    </footer>
 
-  <footer class="footer">© 2025 Zekan · כל הזכויות שמורות · <a href="/privacy">מדיניות פרטיות</a></footer>
+  </div>
 
   <script src="/form.js?v=2"></script>
 </body>
