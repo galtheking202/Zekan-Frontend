@@ -95,12 +95,16 @@ export const api = {
     return get(`/articles/near?lat=${lat}&lon=${lon}&search_level=1`);
   },
 
-  registerPushToken: async (token: string, platform: string): Promise<void> => {
+  registerPushToken: async (
+    token: string,
+    platform: string,
+    location?: { lat: number; lon: number } | { location_id: string }
+  ): Promise<void> => {
     if (await useMock()) return;
     await fetch(`${BASE_URL}/push/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token, platform }),
+      body: JSON.stringify({ token, platform, ...location }),
     });
   },
 

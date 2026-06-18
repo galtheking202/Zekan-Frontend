@@ -92,6 +92,8 @@ export default function SettingsScreen() {
     }
     setLocationPickerOpen(false);
     setLocationQuery('');
+    // Refresh the push location so urgent notifications follow the new choice.
+    await registerForPush();
   };
 
   const selectLanguage = async (lang: SupportedLanguage | null) => {
