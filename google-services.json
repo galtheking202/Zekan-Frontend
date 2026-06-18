@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "694855952028",
+    "project_id": "zekan-a3d18",
+    "storage_bucket": "zekan-a3d18.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694855952028:android:d2e672953352c41a79ef59",
+        "android_client_info": {
+          "package_name": "com.news.zekan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGBwXaJKNhlwcPdi8fj4lBdXCEFcFZGr8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
