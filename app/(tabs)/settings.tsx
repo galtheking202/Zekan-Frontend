@@ -22,6 +22,7 @@ import {
 import { SupportedLanguage, LANGUAGE_NAMES } from '../../lib/i18n';
 import { Colors } from '../../constants/colors';
 import { api } from '../../services/api';
+import { registerForPush, unregisterPush } from '../../lib/push';
 import { Location } from '../../types';
 const MANUAL_LOCATION_ID_KEY = '@zekan/manual_location_id';
 const MANUAL_LOCATION_NAME_KEY = '@zekan/manual_location_name';
@@ -51,6 +52,11 @@ export default function SettingsScreen() {
     const next = !urgentNotifications;
     setUrgentNotifications(next);
     await AsyncStorage.setItem(URGENT_NOTIFICATIONS_KEY, String(next));
+    if (next) {
+      await registerForPush();
+    } else {
+      await unregisterPush();
+    }
   };
 
   const handleLocationPickerToggle = async () => {

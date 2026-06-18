@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   View,
   Text,
@@ -11,7 +11,6 @@ import {
   Image,
 } from 'react-native';
 import * as Location from 'expo-location';
-import * as Notifications from 'expo-notifications';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
 import { useFocusEffect, useRouter } from 'expo-router';
@@ -27,17 +26,16 @@ function dedupeById(articles: Article[]): Article[] {
 
 const MANUAL_LOCATION_ID_KEY = '@zekan/manual_location_id';
 const MANUAL_LOCATION_NAME_KEY = '@zekan/manual_location_name';
-const URGENT_NOTIFICATIONS_KEY = '@zekan/urgent_notifications';
 
 export default function FeedScreen() {
   const { t, i18n } = useTranslation();
   const rtl = i18n.language === 'he';
   const router = useRouter();
   const [articles, setArticles] = useState<Article[]>([]);
+  const [locationName, setLocationName] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState(false);
-  const notifiedIds = useRef<Set<string>>(new Set());
 
   const sortLatestFirst = (list: Article[]) =>
     [...list].sort((a, b) => {
@@ -45,24 +43,6 @@ export default function FeedScreen() {
       const tb = new Date(b.last_updated ?? b.created_at ?? b.date).getTime();
       return tb - ta;
     });
-
-  const notifyUrgent = useCallback(async (incoming: Article[]) => {
-    const urgentEnabled = (await AsyncStorage.getItem(URGENT_NOTIFICATIONS_KEY)) !== 'false';
-    if (!urgentEnabled) return;
-    for (const article of incoming) {
-      if (article.is_urgent && !notifiedIds.current.has(article.id)) {
-        notifiedIds.current.add(article.id);
-        await Notifications.scheduleNotificationAsync({
-          content: {
-            title: '🔴 Breaking News',
-            body: article.header,
-            data: { articleId: article.id },
-          },
-          trigger: null,
-        });
-      }
-    }
-  }, []);
 
   const load = useCallback(async (isRefresh = false) => {
     try {
@@ -73,23 +53,27 @@ export default function FeedScreen() {
         MANUAL_LOCATION_NAME_KEY,
       ]);
       if (manualLocationId && manualLocationName) {
+        setLocationName(manualLocationName);
         const data = await api.nearbyArticlesByName(manualLocationName);
         const flat = sortLatestFirst(dedupeById(data.groups.flatMap((g) => g.articles)));
         setArticles(flat);
-        await notifyUrgent(flat);
         return;
       }
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status === 'granted') {
         const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
-        const data = await api.nearbyArticles(pos.coords.latitude, pos.coords.longitude);
+        // Resolve the containing location alongside the feed; a failure must not break it.
+        const [data, resolved] = await Promise.all([
+          api.nearbyArticles(pos.coords.latitude, pos.coords.longitude),
+          api.resolveLocation(pos.coords.latitude, pos.coords.longitude).catch(() => null),
+        ]);
+        setLocationName(resolved?.name ?? null);
         const flat = sortLatestFirst(dedupeById(data.groups.flatMap((g) => g.articles)));
         setArticles(flat);
-        await notifyUrgent(flat);
       } else {
+        setLocationName(null);
         const data = await api.articles();
         setArticles(data);
-        await notifyUrgent(data);
       }
     } catch {
       setError(true);
@@ -116,9 +100,16 @@ export default function FeedScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={[styles.header, { flexDirection: rtl ? 'row-reverse' : 'row' }]}>
-        <View style={[styles.titleRow, { flexDirection: rtl ? 'row-reverse' : 'row' }]}>
-          <Image source={require('../../assets/Zekan_icon.png')} style={styles.logo} resizeMode="contain" />
-          <Text style={styles.title}>{t('feed.title')}</Text>
+        <View style={[styles.titleColumn, { alignItems: rtl ? 'flex-end' : 'flex-start' }]}>
+          <View style={[styles.titleRow, { flexDirection: rtl ? 'row-reverse' : 'row' }]}>
+            <Image source={require('../../assets/Zekan_icon.png')} style={styles.logo} resizeMode="contain" />
+            <Text style={styles.title}>{t('feed.title')}</Text>
+          </View>
+          {locationName && (
+            <Text style={[styles.locationLabel, { textAlign: rtl ? 'right' : 'left' }]} numberOfLines={1}>
+              📍 {locationName}
+            </Text>
+          )}
         </View>
         <Pressable onPress={() => router.navigate('/(tabs)/search')} style={styles.searchBtn}>
           <Text style={styles.searchIcon}>🔍</Text>
@@ -180,9 +171,18 @@ const styles = StyleSheet.create({
   searchIcon: {
     fontSize: 20,
   },
+  titleColumn: {
+    flex: 1,
+    gap: 2,
+  },
   titleRow: {
     alignItems: 'center',
     gap: 8,
+  },
+  locationLabel: {
+    fontSize: 13,
+    color: Colors.textSecondary,
+    fontWeight: '500',
   },
   logo: {
     width: 32,

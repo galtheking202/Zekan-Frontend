@@ -95,6 +95,32 @@ export const api = {
     return get(`/articles/near?lat=${lat}&lon=${lon}&search_level=1`);
   },
 
+  registerPushToken: async (token: string, platform: string): Promise<void> => {
+    if (await useMock()) return;
+    await fetch(`${BASE_URL}/push/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token, platform }),
+    });
+  },
+
+  unregisterPushToken: async (token: string): Promise<void> => {
+    if (await useMock()) return;
+    await fetch(`${BASE_URL}/push/unregister`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token }),
+    });
+  },
+
+  resolveLocation: async (lat: number, lon: number): Promise<Location | null> => {
+    if (await useMock()) {
+      await sleep(200);
+      return MOCK_LOCATIONS[0] ?? null;
+    }
+    return get(`/locations/resolve?lat=${lat}&lon=${lon}`);
+  },
+
   nearbyArticlesByName: async (locationName: string): Promise<NearbyArticlesResponse> => {
     if (await useMock()) {
       await sleep(700);
