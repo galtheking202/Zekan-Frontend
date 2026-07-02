@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ZeKan — כאן ועכשיו, בלי רעשי רקע.</title>
-  <meta name="description" content="חדשות היפר-מקומיות בזמן אמת. כאן ועכשיו, בלי רעשי רקע." />
+  <title>ZeKan — חדשות היפר-מקומיות בזמן אמת</title>
+  <meta name="description" content="חדשות היפר-מקומיות בזמן אמת. כאן ועכשיו, בלי רעשי רקע. הורידו עכשיו ל-iOS ולאנדרואיד." />
+  <meta name="apple-itunes-app" content="app-id=6778926304" />
 
   <!-- Open Graph -->
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://zekan.news/" />
   <meta property="og:title"       content="ZeKan — כאן ועכשיו, בלי רעשי רקע." />
-  <meta property="og:description" content="חדשות היפר-מקומיות בזמן אמת. כאן ועכשיו, בלי רעשי רקע." />
+  <meta property="og:description" content="חדשות היפר-מקומיות בזמן אמת. הורידו עכשיו ל-iOS ולאנדרואיד." />
   <meta property="og:image"       content="https://zekan.news/og-image.svg" />
   <meta property="og:image:width"  content="1200" />
   <meta property="og:image:height" content="630" />
@@ -20,7 +21,7 @@
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="ZeKan — כאן ועכשיו, בלי רעשי רקע." />
-  <meta name="twitter:description" content="חדשות היפר-מקומיות בזמן אמת. כאן ועכשיו, בלי רעשי רקע." />
+  <meta name="twitter:description" content="חדשות היפר-מקומיות בזמן אמת. הורידו עכשיו ל-iOS ולאנדרואיד." />
   <meta name="twitter:image"       content="https://zekan.news/og-image.svg" />
 <style>
   :root{
@@ -32,18 +33,15 @@
     --accent:#9FC4ED;
   }
   *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
   body{
     margin:0;
     min-height:100vh;
     background:radial-gradient(circle at 30% 20%, var(--blue-light), var(--blue-dark) 70%);
     color:var(--white);
     font-family:'Segoe UI', Arial, sans-serif;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:40px 20px;
     position:relative;
-    overflow:hidden;
+    overflow-x:hidden;
   }
 
   .bubbles{
@@ -82,14 +80,63 @@
     .bubble{ animation:none; opacity:0.1; }
   }
 
-  .wrap{
-    max-width:520px;
-    width:100%;
-    text-align:center;
+  /* ── Header ── */
+  header.top{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    max-width:1080px;
+    margin:0 auto;
+    padding:24px 24px 0;
+  }
+  .wordmark{
+    font-size:26px;
+    font-weight:800;
+    letter-spacing:-0.01em;
+    color:var(--white);
+    text-decoration:none;
+  }
+  .wordmark .k{ color:var(--accent); }
+  nav.main-nav{
+    display:flex;
+    gap:22px;
+  }
+  nav.main-nav a{
+    color:var(--text-muted);
+    text-decoration:none;
+    font-size:15px;
+    font-weight:500;
+  }
+  nav.main-nav a:hover{ color:var(--white); }
+
+  /* ── Sections ── */
+  section{
     position:relative;
     z-index:1;
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+  .section-title{
+    font-size:32px;
+    font-weight:800;
+    text-align:center;
+    margin:0 0 36px;
   }
 
+  /* ── Hero ── */
+  .hero{
+    min-height:78vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding-top:48px;
+    padding-bottom:64px;
+  }
   h1.logo{
     font-size:72px;
     font-weight:800;
@@ -98,139 +145,174 @@
     line-height:1;
   }
   h1.logo .k{ color:var(--accent); }
-
   p.tagline{
-    font-size:20px;
-    color:var(--text-muted);
-    margin:0 0 18px;
-  }
-
-  .coming-soon{
     font-size:22px;
-    font-weight:700;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--accent);
-    margin:0 0 22px;
-  }
-
-  .features{
-    display:flex;
-    justify-content:center;
-    gap:14px;
-    margin-bottom:40px;
-    flex-wrap:nowrap;
-  }
-  .feature{
-    font-size:13px;
     color:var(--white);
-    display:flex;
-    align-items:center;
-    gap:6px;
-    padding:10px 14px;
-    border:1px solid rgba(255,255,255,0.35);
-    border-radius:10px;
-    background:rgba(255,255,255,0.06);
-    white-space:nowrap;
-  }
-  .feature svg{
-    width:18px;
-    height:18px;
-    flex-shrink:0;
-    color:var(--accent);
-  }
-
-  form{
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-    margin-bottom:14px;
-  }
-  input[type="email"]{
-    padding:18px 22px;
-    border:none;
-    border-radius:14px;
-    background:var(--field-bg);
-    font-size:16px;
-    color:#1B1B1B;
-    text-align:right;
-  }
-  input[type="email"]::placeholder{
-    color:#9AA5B1;
-    text-align:left;
-  }
-  input[type="email"]:focus{
-    outline:3px solid var(--accent);
-  }
-  button{
-    padding:18px 22px;
-    border:none;
-    border-radius:14px;
-    background:var(--white);
-    color:var(--blue-dark);
-    font-size:16px;
-    font-weight:700;
-    cursor:pointer;
-  }
-  button:hover{ background:var(--field-bg); }
-  button:disabled{ opacity:0.6; cursor:default; }
-
-  .fine{
-    font-size:13px;
-    color:var(--text-muted);
-    margin-bottom:48px;
-  }
-
-  /* ── Success ── */
-  .success{
-    display:none;
-    flex-direction:column;
-    align-items:center;
-    gap:10px;
-    margin-bottom:48px;
-  }
-  .success-icon{
-    width:52px;
-    height:52px;
-    background:rgba(255,255,255,0.2);
-    border:2px solid rgba(255,255,255,0.6);
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin-bottom:4px;
-  }
-  .success-icon svg{
-    width:24px;
-    height:24px;
-    stroke:#fff;
-    stroke-width:2.5;
-    fill:none;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-  }
-  .success-text{
-    font-size:17px;
     font-weight:600;
-    color:var(--white);
+    margin:0 0 10px;
   }
-  .success-sub{
+  p.subline{
+    font-size:17px;
+    color:var(--text-muted);
+    margin:0 0 34px;
+  }
+
+  .badges{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .badges a{ display:inline-flex; }
+  .badges img.badge-apple{ height:54px; width:auto; }
+  .badges img.badge-google{ height:80px; width:auto; margin:-13px 0; }
+
+  /* ── Feature cards ── */
+  .features-section{ padding-bottom:80px; }
+  .feature-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:18px;
+  }
+  .card{
+    border:1px solid rgba(255,255,255,0.28);
+    border-radius:16px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    padding:22px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .card svg{
+    width:28px;
+    height:28px;
+    color:var(--accent);
+  }
+  .card h3{
+    margin:0;
+    font-size:17px;
+    font-weight:700;
+  }
+  .card p{
+    margin:0;
     font-size:14px;
+    line-height:1.6;
     color:var(--text-muted);
   }
 
-  footer{
+  /* ── How it works ── */
+  .how-section{ padding-bottom:80px; }
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:32px;
+  }
+  .step{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:16px;
+  }
+  .step-num{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.16);
+    border:1px solid rgba(255,255,255,0.4);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:17px;
+  }
+  .step h3{
+    margin:0;
+    font-size:18px;
+    font-weight:700;
+  }
+  .step p{
+    margin:0;
+    font-size:14px;
+    line-height:1.6;
+    color:var(--text-muted);
+    max-width:260px;
+  }
+  .phone{
+    width:230px;
+    padding:10px;
+    border-radius:36px;
+    background:#1B1B1B;
+    box-shadow:0 18px 40px rgba(0,0,0,0.28);
+  }
+  .screen{
+    position:relative;
+    aspect-ratio:9/19.5;
+    border-radius:26px;
+    overflow:hidden;
+    background:linear-gradient(160deg, var(--blue-light), var(--blue-dark));
+  }
+  .screen::after{
+    content:'בקרוב';
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    font-weight:700;
+    color:rgba(255,255,255,0.85);
+    z-index:0;
+  }
+  .screen img.shot{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:1;
+  }
+
+  /* ── Final CTA ── */
+  .cta-section{
+    text-align:center;
+    padding-bottom:90px;
+  }
+  .cta-section h2{
+    font-size:30px;
+    font-weight:800;
+    margin:0 0 26px;
+  }
+
+  /* ── Footer ── */
+  footer.site{
+    position:relative;
+    z-index:1;
+    text-align:center;
     font-size:13px;
     color:var(--text-muted);
+    padding:0 24px 34px;
   }
-  footer a{ color:var(--text-muted); text-decoration:underline; }
+  footer.site a{ color:var(--text-muted); text-decoration:underline; }
+  footer.site a:hover{ color:var(--white); }
 
-  @media (max-width:480px){
+  @media (max-width:860px){
+    .feature-grid{ grid-template-columns:repeat(2, 1fr); }
+    .steps{ grid-template-columns:1fr; gap:44px; }
+  }
+  @media (max-width:520px){
     h1.logo{font-size:52px;}
-    p.tagline{font-size:17px;}
-    .features{gap:8px;}
-    .feature{font-size:11px; padding:8px 10px;}
-    .feature svg{width:14px; height:14px;}
+    p.tagline{font-size:18px;}
+    p.subline{font-size:15px;}
+    .section-title{font-size:26px;}
+    .feature-grid{ grid-template-columns:1fr; }
+    nav.main-nav{ gap:14px; }
+    nav.main-nav a{ font-size:13px; }
+    .badges img.badge-apple{ height:46px; }
+    .badges img.badge-google{ height:68px; margin:-11px 0; }
   }
 </style>
 </head>
@@ -247,55 +329,118 @@
     <div class="bubble"></div>
     <div class="bubble"></div>
   </div>
-  <div class="wrap">
 
+  <header class="top">
+    <a href="/" class="wordmark">Ze<span class="k">K</span>an</a>
+    <nav class="main-nav">
+      <a href="#features">תכונות</a>
+      <a href="#how">איך זה עובד</a>
+      <a href="/contact">צרו קשר</a>
+    </nav>
+  </header>
+
+  <section class="hero">
     <h1 class="logo">Ze<span class="k">K</span>an</h1>
     <p class="tagline">כאן ועכשיו, בלי רעשי רקע.</p>
+    <p class="subline">חדשות היפר-מקומיות בזמן אמת — עכשיו בחנויות האפליקציות</p>
+    <div class="badges">
+      <a href="https://apps.apple.com/il/app/id6778926304">
+        <img class="badge-apple" src="/badges/app-store-he.svg" alt="הורדה ב-App Store" />
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.news.zekan&amp;hl=he">
+        <img class="badge-google" src="/badges/google-play-he.png" alt="קבל אותה ב-Google Play" />
+      </a>
+    </div>
+  </section>
 
-    <p class="coming-soon">הדרך החדשה לצרוך חדשות</p>
-
-    <div class="features">
-      <span class="feature">
+  <section id="features" class="features-section">
+    <h2 class="section-title">למה ZeKan?</h2>
+    <div class="feature-grid">
+      <div class="card">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        עדכונים מהאזור שלך
-      </span>
-      <span class="feature">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        בזמן אמת
-      </span>
-      <span class="feature">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L14.7 3.86a2 2 0 0 0-3.4 0z"/></svg>
-        רק מה שחשוב
-      </span>
-    </div>
-
-    <form id="form">
-      <input
-        id="email"
-        type="email"
-        name="email"
-        placeholder="your@email.com"
-        autocomplete="email"
-        required
-      />
-      <button class="submit-btn" type="submit">עדכנו אותי!</button>
-    </form>
-    <div class="fine">ללא ספאם. ניצור קשר רק לפני השקת האפליקציה.</div>
-
-    <div class="success" id="success">
-      <div class="success-icon">
-        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" /></svg>
+        <h3>פיד חדשות מקומי</h3>
+        <p>חדשות מהאזור שלכם, לפי המיקום המדויק שלכם — אוטומטית או בבחירה ידנית.</p>
       </div>
-      <span class="success-text">נרשמת בהצלחה</span>
-      <span class="success-sub">נעדכן אותך כשנהיה מוכנים.</span>
+      <div class="card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        <h3>התראות דחופות</h3>
+        <p>התראה בזמן אמת ברגע שמשהו חשוב קורה לידכם — רק כשזה באמת דחוף.</p>
+      </div>
+      <div class="card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+        <h3>ציון אמינות</h3>
+        <p>לכל כתבה ציון אמינות מ-1 עד 10 עם קידוד צבע, כדי שתדעו על מה אפשר לסמוך.</p>
+      </div>
+      <div class="card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg>
+        <h3>חדשות על המפה</h3>
+        <p>דפדפו בחדשות לפי עיר, אזור או מדינה — כולל תצוגת מפה של אזורי הסיקור.</p>
+      </div>
+      <div class="card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <h3>חיפוש חכם</h3>
+        <p>חיפוש טקסט מלא בכל הכתבות — לפי כותרת, תוכן, קטגוריה או אזור.</p>
+      </div>
+      <div class="card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+        <h3>קטגוריות מסודרות</h3>
+        <p>פוליטיקה, כלכלה, בריאות, טכנולוגיה, סביבה, ביטחון, ספורט וכבישים.</p>
+      </div>
     </div>
+  </section>
 
-    <footer>
-      © Zekan 2025 · כל הזכויות שמורות · <a href="/privacy">מדיניות פרטיות</a>
-    </footer>
+  <section id="how" class="how-section">
+    <h2 class="section-title">איך זה עובד?</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">1</span>
+        <div class="phone">
+          <div class="screen">
+            <img class="shot" src="/shots/front.png" alt="מסך הפתיחה של אפליקציית ZeKan" loading="lazy" />
+          </div>
+        </div>
+        <h3>פותחים את ZeKan</h3>
+        <p>בלי הרשמה ובלי סיסמה — נכנסים ישר לחדשות מהאזור שלכם.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">2</span>
+        <div class="phone">
+          <div class="screen">
+            <img class="shot" src="/shots/feed.jpeg" alt="פיד החדשות המקומי באפליקציית ZeKan" loading="lazy" />
+          </div>
+        </div>
+        <h3>מקבלים פיד מקומי</h3>
+        <p>רק החדשות שרלוונטיות לכם — בלי רעשי רקע ובלי הצפה.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">3</span>
+        <div class="phone">
+          <div class="screen">
+            <img class="shot" src="/shots/article.jpeg" alt="כתבה עם ציון אמינות באפליקציית ZeKan" loading="lazy" />
+          </div>
+        </div>
+        <h3>קוראים בביטחון</h3>
+        <p>ציון אמינות לכל כתבה, מקורות מלאים והתראות דחופות בזמן אמת.</p>
+      </div>
+    </div>
+  </section>
 
-  </div>
+  <section class="cta-section">
+    <h2>הורידו את ZeKan עכשיו</h2>
+    <div class="badges">
+      <a href="https://apps.apple.com/il/app/id6778926304">
+        <img class="badge-apple" src="/badges/app-store-he.svg" alt="הורדה ב-App Store" />
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.news.zekan&amp;hl=he">
+        <img class="badge-google" src="/badges/google-play-he.png" alt="קבל אותה ב-Google Play" />
+      </a>
+    </div>
+  </section>
 
-  <script src="/form.js?v=2"></script>
+  <footer class="site">
+    © Zekan 2026 · כל הזכויות שמורות · <a href="/privacy">מדיניות פרטיות</a> · <a href="/contact">צרו קשר</a>
+  </footer>
+
+  <script src="/script.js"></script>
 </body>
 </html>

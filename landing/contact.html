@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZeKan · צרו קשר</title>
+  <meta name="description" content="צרו קשר עם צוות ZeKan — תמיכה, משוב ופניות." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: linear-gradient(160deg, #68B4F0 0%, #3A8FD6 55%, #2575C4 100%);
+      min-height: 100dvh;
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 28px 32px 0;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.15s;
+      margin-right: auto;
+    }
+
+    .back-link:hover { color: #ffffff; }
+
+    .back-link svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .wordmark-small {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .wordmark-small .k {
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    /* ── Content card ── */
+    .container {
+      max-width: 560px;
+      margin: 48px auto 80px;
+      padding: 0 24px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 40px 44px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .card { padding: 28px 24px; }
+      .header { padding: 20px 20px 0; }
+    }
+
+    h1 {
+      font-size: 30px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 14px;
+    }
+
+    .intro {
+      font-size: 15px;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.82);
+      margin-bottom: 28px;
+    }
+
+    .mail-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #ffffff;
+      color: #2575C4;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      padding: 16px 28px;
+      border-radius: 14px;
+      transition: background 0.15s;
+      direction: ltr;
+    }
+
+    .mail-btn:hover { background: #EEF3FA; }
+
+    .mail-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .reply-note {
+      margin-top: 22px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.45);
+      text-align: center;
+    }
+
+    .footer a {
+      color: rgba(255, 255, 255, 0.45);
+      text-decoration: underline;
+    }
+
+    .footer a:hover { color: #ffffff; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <a href="/" class="wordmark-small">Ze<span class="k">K</span>an</a>
+    <a href="/" class="back-link">
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6" /></svg>
+      חזרה
+    </a>
+  </div>
+
+  <div class="container">
+    <div class="card">
+
+      <h1>צרו קשר</h1>
+      <p class="intro">
+        יש לכם שאלה, משוב, דיווח על תקלה או פנייה עיתונאית?<br />
+        נשמח לשמוע מכם — שלחו לנו מייל ונחזור אליכם בהקדם.
+      </p>
+
+      <a class="mail-btn" href="mailto:zekan.news@gmail.com">
+        <svg viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        zekan.news@gmail.com
+      </a>
+
+      <p class="reply-note">אנחנו משתדלים לענות לכל פנייה תוך יום-יומיים.</p>
+
+    </div>
+  </div>
+
+  <footer class="footer">© Zekan 2026 · <a href="/privacy">מדיניות פרטיות</a></footer>
+
+</body>
+</html>
