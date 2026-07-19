@@ -1,9 +1,16 @@
 import { Article, Location, LocationGroup, NearbyArticlesResponse } from '../types';
 import { MOCK_ARTICLES, MOCK_LOCATIONS } from './mockData';
 import { isMockEnabled } from './mockStore';
+import i18n from '../lib/i18n';
 
 const BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? '';
 const BUILD_MOCK = !BASE_URL || process.env.EXPO_PUBLIC_USE_MOCK === 'true';
+
+/** Current UI language ("en" | "he") — the server localizes location names with it. */
+function lang(): string {
+  const l = (i18n.language || 'en').split('-')[0];
+  return l === 'he' ? 'he' : 'en';
+}
 
 async function useMock(): Promise<boolean> {
   return BUILD_MOCK || isMockEnabled();
@@ -29,7 +36,7 @@ export const api = {
       await sleep(600);
       return mockArticles();
     }
-    return get('/articles');
+    return get(`/articles?lang=${lang()}`);
   },
 
   articleById: async (id: string): Promise<Article | null> => {
@@ -37,7 +44,7 @@ export const api = {
       await sleep(200);
       return (await mockArticles()).find((a) => a.id === id) ?? null;
     }
-    return get(`/articles/${id}`);
+    return get(`/articles/${id}?lang=${lang()}`);
   },
 
   search: async (q: string): Promise<Article[]> => {
@@ -53,7 +60,7 @@ export const api = {
           (a.region ?? '').toLowerCase().includes(lower)
       );
     }
-    return get(`/search?q=${encodeURIComponent(q)}`);
+    return get(`/search?q=${encodeURIComponent(q)}&lang=${lang()}`);
   },
 
   articlesByLocation: async (locationId: string, limit = 100): Promise<Article[]> => {
@@ -65,7 +72,7 @@ export const api = {
         (a) => (a.region ?? '').toLowerCase().includes(loc.name.toLowerCase())
       ).slice(0, limit);
     }
-    return get(`/articles/by-location/${locationId}?limit=${limit}`);
+    return get(`/articles/by-location/${locationId}?limit=${limit}&lang=${lang()}`);
   },
 
   locations: async (): Promise<Location[]> => {
@@ -73,7 +80,7 @@ export const api = {
       await sleep(300);
       return MOCK_LOCATIONS;
     }
-    return get('/locations');
+    return get(`/locations?lang=${lang()}`);
   },
 
   nearbyArticles: async (lat: number, lon: number): Promise<NearbyArticlesResponse> => {
@@ -92,7 +99,7 @@ export const api = {
         .filter((g) => g.articles.length > 0);
       return { groups, total: groups.reduce((n, g) => n + g.articles.length, 0) };
     }
-    return get(`/articles/near?lat=${lat}&lon=${lon}&search_level=1`);
+    return get(`/articles/near?lat=${lat}&lon=${lon}&search_level=1&lang=${lang()}`);
   },
 
   registerPushToken: async (
@@ -122,7 +129,7 @@ export const api = {
       await sleep(200);
       return MOCK_LOCATIONS[0] ?? null;
     }
-    return get(`/locations/resolve?lat=${lat}&lon=${lon}`);
+    return get(`/locations/resolve?lat=${lat}&lon=${lon}&lang=${lang()}`);
   },
 
   nearbyArticlesByName: async (locationName: string): Promise<NearbyArticlesResponse> => {
@@ -142,7 +149,7 @@ export const api = {
         : [];
       return { groups, total: groups.reduce((n, g) => n + g.articles.length, 0) };
     }
-    return get(`/articles/near?location_name=${encodeURIComponent(locationName)}&search_level=1`);
+    return get(`/articles/near?location_name=${encodeURIComponent(locationName)}&search_level=1&lang=${lang()}`);
   },
 
   addLocation: async (name: string, level: string, parent?: string): Promise<Location> => {
